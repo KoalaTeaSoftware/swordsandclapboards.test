@@ -1,6 +1,6 @@
 @standards
 Feature: Standards Compliance
-  Syntax errors could be a reason for functional failure, so it is worth regarding this as a smoke test.
+  Syntax errors could be a reason for functional failure, so it is worth regarding this as a smoke test as well.
 
   Scenario Outline: CSS Compliance with W3C standards
   This is intended for testing directly created components of the SUT

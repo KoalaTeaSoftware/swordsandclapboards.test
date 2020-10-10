@@ -86,16 +86,17 @@ public class ChromeActor extends Actor {
         }
         options.setPageLoadStrategy(pls);
         options.addArguments("enable-automation"); // https://stackoverflow.com/a/43840128/1689770
-                options.addArguments("--no-sandbox"); //https://stackoverflow.com/a/50725918/1689770
-//                options.addArguments("--disable-infobars"); //https://stackoverflow.com/a/43840128/1689770
-//                options.addArguments("--disable-dev-shm-usage"); //https://stackoverflow.com/a/50725918/1689770
-//                options.addArguments("--disable-browser-side-navigation"); //https://stackoverflow.com/a/49123152/1689770
-//                options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
-//                options.addArguments("enable-features=NetworkServiceInProcess");
+        // no sandbox tends to cure the random 'can't find open windows' failure
+        options.addArguments("--no-sandbox"); //https://stackoverflow.com/a/50725918/1689770
+        //                options.addArguments("--disable-infobars"); //https://stackoverflow.com/a/43840128/1689770
+        //                options.addArguments("--disable-dev-shm-usage"); //https://stackoverflow.com/a/50725918/1689770
+        //                options.addArguments("--disable-browser-side-navigation"); //https://stackoverflow.com/a/49123152/1689770
+        //                options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
+        //                options.addArguments("enable-features=NetworkServiceInProcess");
 
         driver = new ChromeDriver(options);
 
-// todo - this causes it to just hang, so find out why and replace it with a correct code to set the implicit waits
+        // todo - this causes it to just hang, so find out why and replace it with a correct code to set the implicit waits
         driver.manage().timeouts().implicitlyWait(Context.implicitWait, TimeUnit.SECONDS);
     }
 }

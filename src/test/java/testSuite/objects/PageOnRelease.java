@@ -3,22 +3,17 @@ package testSuite.objects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import testFramework.objects.HtmlPage;
 
 import java.util.List;
 
-public class PageOnRelease {
-    private final WebDriver myDriver;
-    private final HtmlPage htmlPage;
-
+public class PageOnRelease extends PageSwordsAndClapboards {
     final private By locateFilmListItems = By.className("filmListItem");
     final private By locateFilmThumbnails = By.xpath("//*[contains(@class,'filmThumbnail')]");
     final private By locateFilmTitles = By.xpath(("//*[contains(@class,'textLinkToFilmDetails')]"));
     final private By locateFilmPuffs = By.className("filmPuff");
 
     public PageOnRelease(WebDriver webDriver) {
-        myDriver = webDriver;
-        htmlPage = new HtmlPage(myDriver); // use the wait inherent in this
+        super(webDriver);
     }
 
     public List<WebElement> getFilmListItems() {

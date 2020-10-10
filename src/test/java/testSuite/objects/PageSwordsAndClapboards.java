@@ -6,20 +6,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import testFramework.Context;
+import testFramework.objects.HtmlPage;
 
 import java.time.Duration;
 
 /**
  * All of the pages of this web site have common furniture (nav bar, contents-zone, footer)
  */
-public class PageFurniture {
-    final By mainNav = By.xpath("//*[@id='mainNav']//*[contains(@class,'navbar-nav')]");
+public class PageSwordsAndClapboards extends HtmlPage {
     final By lastElement = By.id("footer");
+    final By mainNav = By.xpath("//*[@id='mainNav']//*[contains(@class,'navbar-nav')]");
 
     /**
      * @param driver - asks for this in case you have a driver other than the default driver
      */
-    public PageFurniture(WebDriver driver) {
+    public PageSwordsAndClapboards(WebDriver driver) {
+        super(driver);
         myDriver = driver;
         new WebDriverWait(Context.driver, Duration.ofSeconds(Context.pageLoadWait))
                 // use the 'presence', i.e. is the element actually in the DOM? - expect it to not be visible in plenty of cases
@@ -38,5 +40,5 @@ public class PageFurniture {
         return myDriver.findElement(mainNav).findElement(By.xpath("//a[normalize-space(text())='" + displayedText + "']"));
     }
 
-    private final WebDriver myDriver;
+    protected final WebDriver myDriver;
 }

@@ -7,8 +7,8 @@ Feature: Visit Web Pages
     When I navigate to the page "<address>"
     Then the page title is "<title>"
     Examples:
-      | address                              | title                 |
-      | http://swordsandclapboards.com/      | Swords and Clapboards |
-      | http://swordsandclapboards.com/about | Swords and Clapboards |
+      | address                                    | title                 |
+      | http://stage.swordsandclapboards.com/      | Swords and Clapboards |
+      | http://stage.swordsandclapboards.com/about | Swords and Clapboards |
 
 

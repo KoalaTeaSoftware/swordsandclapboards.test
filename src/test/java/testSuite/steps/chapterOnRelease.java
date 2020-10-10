@@ -3,10 +3,10 @@ package testSuite.steps;
 import io.cucumber.java.en.And;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import org.testng.asserts.SoftAssert;
 import testFramework.Context;
 import testFramework.helpers.Miscellaneous;
 import testSuite.objects.PageOnRelease;
-import org.testng.asserts.SoftAssert;
 
 public class chapterOnRelease {
     private PageOnRelease pageOnRelease;
@@ -90,4 +90,5 @@ public class chapterOnRelease {
         }
         sa.assertAll();
     }
+
 }

@@ -1,4 +1,5 @@
-Feature: Chapter - On Release
+@functional
+Feature: On Release list of films
   Pages in this chapter are data-driven. So the risks are things like
   Images and other content are not correctly specified, or drawn.
   The chapter has a 'list page' with links to details, which open a page from another site (in another tab)
