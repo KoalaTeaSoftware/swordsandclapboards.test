@@ -29,7 +29,7 @@ public class FirefoxActor extends Actor {
                 service = new GeckoDriverService.Builder()
                         .usingDriverExecutable(new File(driverPath))
                         .usingAnyFreePort()
-//                        .withLogFile(new File(logLoc))
+                        //                        .withLogFile(new File(logLoc))
                         .build();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -38,14 +38,14 @@ public class FirefoxActor extends Actor {
         }
     }
 
-    @Override
-    protected void stopService() {
-        if (null != service && service.isRunning()) {
-            System.out.println("[info] Stopping the Driver Service for Firefox");
-            service.stop();
-        }
-
-    }
+    //    @Override
+    //    protected void stopService() {
+    //        if (null != service && service.isRunning()) {
+    //            System.out.println("[info] Stopping the Driver Service for Firefox");
+    //            service.stop();
+    //        }
+    //
+    //    }
 
     @Override
     public void createDriver() {

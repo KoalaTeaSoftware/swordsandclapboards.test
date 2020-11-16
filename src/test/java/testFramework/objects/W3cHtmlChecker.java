@@ -5,12 +5,10 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import testFramework.Context;
-import testFramework.actors.Actor;
 
 import java.time.Duration;
 
 public class W3cHtmlChecker {
-    private String sut;
 
     /**
      * It is best to aim this directly at the single files that you create.
@@ -18,14 +16,14 @@ public class W3cHtmlChecker {
      *
      * @param urlOfHtmlFile - make it a single file.Scheme is not necessary
      */
-    public W3cHtmlChecker(String urlOfHtmlFile) {
-        sut = "https://html5.validator.nu/?doc=";
+    public W3cHtmlChecker(String urlOfHtmlFile, Duration tout) {
+        String sut = "https://html5.validator.nu/?doc=";
         sut += urlOfHtmlFile;
         sut += "&parser=html";
 
         Context.defaultActor.getResource(sut);
 
-        new WebDriverWait(Context.driver, Duration.ofSeconds(20)).
+        new WebDriverWait(Context.defaultDriver, tout).
                 until(ExpectedConditions.presenceOfElementLocated(By.className("details"))
                 );
     }
@@ -37,21 +35,17 @@ public class W3cHtmlChecker {
      */
     public Boolean fileValidates() {
         String resultString;
-        try {
-            resultString = Context.driver.findElement(By.className("success")).getText();
-        } catch (NoSuchElementException e) {
-            Actor.writeToHtmlReport("Unable to find a success notice from :" + sut + ":");
-            return false;
-        }
-
         /*
         <p class="success">The document validates according to the specified schema(s).</p>
          */
-        if (resultString.contains(" document is valid ")) {
-            return true;
+        try {
+            resultString = Context.defaultDriver.findElement(By.className("success")).getText();
+            if (resultString.contains(" document is valid ")) {
+                return true;
+            }
+        } catch (NoSuchElementException ignored) {
         }
         // make the default result to be failure
-        Actor.writeToHtmlReport("Found no evidence of success using :" + sut + ":");
         return false;
     }
 }

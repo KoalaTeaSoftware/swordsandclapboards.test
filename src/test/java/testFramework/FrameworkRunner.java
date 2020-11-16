@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
                 "de.monochromata.cucumber.report.PrettyReports:target/"
         }
         , tags = "@standards or @smoke"
-//        , dryRun = true
+        //        , dryRun = true
 )
 
 public class FrameworkRunner {

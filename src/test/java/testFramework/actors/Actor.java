@@ -72,7 +72,7 @@ public abstract class Actor {
      * @param message - what you want to se written in the report
      */
     public void writeScreenShotToHtmlReport(String message) {
-        TakesScreenshot ts = (TakesScreenshot) Context.driver;
+        TakesScreenshot ts = (TakesScreenshot) Context.defaultDriver;
         byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
 
         Context.scenario.embed(screenshot, "image/png", message);
@@ -84,15 +84,17 @@ ImageIO.write(image, "png", new File("/screenshot.png"));
     }
 
     public void writePageSourceToHtmlReport() {
-        writeToHtmlReport(Context.driver.getPageSource());
+        writeToHtmlReport(Context.defaultDriver.getPageSource());
     }
 
     protected abstract void startService();
 
-    /**
-     * This may never actually be called. The service may just fade away as the test dies
-     */
-    protected abstract void stopService();
+    // --Commented out by Inspection START (11/10/2020 20:28):
+    //    /**
+    //     * This may never actually be called. The service may just fade away as the test dies
+    //     */
+    //    protected abstract void stopService();
+    // --Commented out by Inspection STOP (11/10/2020 20:28)
 
     protected abstract void createDriver();
 

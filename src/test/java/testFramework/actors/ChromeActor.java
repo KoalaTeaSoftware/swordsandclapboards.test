@@ -45,14 +45,14 @@ public class ChromeActor extends Actor {
         }
     }
 
-    // NB: this is unused at the moment, but is here for completeness
-    @Override
-    protected void stopService() {
-        if (null != service && service.isRunning()) {
-            System.out.println("[info] Stopping the Driver Service for Chrome");
-            service.stop();
-        }
-    }
+    //    // NB: this is unused at the moment, but is here for completeness
+    //    @Override
+    //    protected void stopService() {
+    //        if (null != service && service.isRunning()) {
+    //            System.out.println("[info] Stopping the Driver Service for Chrome");
+    //            service.stop();
+    //        }
+    //    }
 
     @Override
     public void createDriver() {

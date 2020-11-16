@@ -14,7 +14,7 @@ public class Context {
     public static Scenario scenario;
     public static ActorType defaultActorType;
     public static Actor defaultActor;
-    public static WebDriver driver;
+    public static WebDriver defaultDriver;
 
     // these fields are static so that the test steps (which are static) can gain access to them
     public static ConfigReader testConfiguration;
@@ -67,6 +67,6 @@ public class Context {
 
     // There is one context, and it contains interpretations of the config files, and other shared info
     // Maybe this should be implemented in another way, because IntelliJ think that this is a utility class
-    @SuppressWarnings({"InstantiationOfUtilityClass"})
+    @SuppressWarnings({"InstantiationOfUtilityClass", "unused"})
     private static final Context me = new Context();
 }

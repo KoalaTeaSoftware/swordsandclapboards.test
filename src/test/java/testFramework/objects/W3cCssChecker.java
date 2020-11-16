@@ -14,16 +14,18 @@ public class W3cCssChecker {
      *
      * @param urlOfCssFile - make it a single file.Scheme is not necessary
      */
-    public W3cCssChecker(String urlOfCssFile) {
+    public W3cCssChecker(String urlOfCssFile, Duration tout) {
         String fullUrl = "http://jigsaw.w3.org/css-validator/validator?uri=";
         fullUrl += urlOfCssFile;
+        //noinspection SpellCheckingInspection
         fullUrl += "&profile=css3svg&usermedium=all&warning=1&vextwarning=";
 
         Context.defaultActor.getResource(fullUrl);
 
-        new WebDriverWait(Context.driver, Duration.ofSeconds(30))
+        new WebDriverWait(Context.defaultDriver, tout)
                 // use the 'presence', i.e. is the element actually in the DOM - it may not be visible
                 .until(ExpectedConditions.titleContains("W3C CSS Validator results for "));
+
     }
 
     /**
@@ -32,7 +34,7 @@ public class W3cCssChecker {
      * @return - whether it contains text that indicates success, or failure
      */
     public Boolean fileValidates() {
-        String resultString = Context.driver.findElement(By.tagName("H3")).getText();
+        String resultString = Context.defaultDriver.findElement(By.tagName("H3")).getText();
 
         return resultString.contains("No Error Found");
         // the alternative text is "We found the following errors"

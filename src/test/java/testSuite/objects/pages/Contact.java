@@ -1,10 +1,10 @@
-package testSuite.objects;
+package testSuite.objects.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class PageContact extends PageSwordsAndClapboards {
+public class Contact extends CommonPage {
     /**
      * Add a tab character to the given string - this will invoke any field validation
      *
@@ -36,7 +36,7 @@ public class PageContact extends PageSwordsAndClapboards {
 
     final By messageCharCount = By.id("letterCount");
 
-    public PageContact(WebDriver webDriver) {
+    public Contact(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(myDriver, this);
         momentOfBirth = getTimestamp();

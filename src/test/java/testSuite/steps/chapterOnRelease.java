@@ -5,11 +5,10 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.testng.asserts.SoftAssert;
 import testFramework.Context;
-import testFramework.helpers.Miscellaneous;
-import testSuite.objects.PageOnRelease;
+import testSuite.objects.pages.OnRelease;
 
 public class chapterOnRelease {
-    private PageOnRelease pageOnRelease;
+    private OnRelease onRelease;
 
     /**
      * Lazy instantiation of the handle on the page
@@ -17,11 +16,11 @@ public class chapterOnRelease {
      *
      * @return - the instance of the page being looked at
      */
-    private PageOnRelease getMe() {
-        if (pageOnRelease == null) {
-            pageOnRelease = new PageOnRelease(Context.driver);
+    private OnRelease getMe() {
+        if (onRelease == null) {
+            onRelease = new OnRelease(Context.defaultDriver);
         }
-        return pageOnRelease;
+        return onRelease;
     }
 
 
@@ -48,7 +47,7 @@ public class chapterOnRelease {
             );
             // the link checker (part of the framework) will also verify that the src attribute points to an actual file
             sa.assertTrue(
-                    Miscellaneous.urlPointsToAnImage(el.getAttribute("src")),
+                    getMe().browserShowsImage(el),
                     String.format("The src attribute (%s) appears to be bad", el.getAttribute("src")
                     )
             );

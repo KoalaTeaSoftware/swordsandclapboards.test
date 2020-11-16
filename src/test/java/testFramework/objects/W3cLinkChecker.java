@@ -1,6 +1,7 @@
 package testFramework.objects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,7 +11,6 @@ import testFramework.actors.Actor;
 import java.time.Duration;
 
 public class W3cLinkChecker {
-    private String sut;
 
     /**
      * It is best to aim this directly at the single files that you create.
@@ -18,14 +18,14 @@ public class W3cLinkChecker {
      *
      * @param urlOfCssFile - make it a single file.Scheme is not necessary
      */
-    public W3cLinkChecker(String urlOfCssFile) {
-        sut = "https://validator.w3.org/checklink?uri=";
+    public W3cLinkChecker(String urlOfCssFile, Duration tout) throws TimeoutException {
+        String sut = "https://validator.w3.org/checklink?uri=";
         sut += urlOfCssFile;
-        sut += "%2F&summary=on&hide_type=all&depth=&check=Check";
+        sut += "&summary=on&hide_type=all&depth=&check=Check";
 
         Context.defaultActor.getResource(sut);
 
-        new WebDriverWait(Context.driver, Duration.ofSeconds(120)).until(ExpectedConditions.presenceOfElementLocated(By.tagName("H3")));
+        new WebDriverWait(Context.defaultDriver, tout).until(ExpectedConditions.presenceOfElementLocated(By.tagName("H3")));
     }
 
     /**
@@ -33,19 +33,19 @@ public class W3cLinkChecker {
      */
     public Boolean fileValidates() {
         // the first h3 tells you the result
-        if (Context.driver.findElement(By.tagName("h3")).getText().toLowerCase().contains("broken links")) {
-            Actor.writeToHtmlReport("Found mention of broken links using :" + sut + ":");
+        if (Context.defaultDriver.findElement(By.tagName("h3")).getText().toLowerCase().contains("broken links")) {
             // it definitely says there is a problem
+            Actor.writeToHtmlReport("Found evidence of broken links (an H3 saying just that)");
+            Actor.writeToHtmlReport(Context.defaultDriver.findElement(By.xpath("//dl[@class='report']")).getAttribute("innerHTML"));
             return false;
         }
         // otherwise, hunt for the p that specifically indicates success
-        for (WebElement p : Context.driver.findElements(By.tagName("p"))) {
+        for (WebElement p : Context.defaultDriver.findElements(By.tagName("p"))) {
             if (p.getText().equalsIgnoreCase("Valid links!"))
                 return true;
         }
         // failing anything good, default to failure
-        Actor.writeToHtmlReport("Found no evidence of success using :" + sut + ":");
+        Actor.writeToHtmlReport("Failed to find evidence of valid links (a P saying just that)");
         return false;
     }
-
 }

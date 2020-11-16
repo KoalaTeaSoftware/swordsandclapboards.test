@@ -5,19 +5,22 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import testFramework.Context;
-import testSuite.objects.PageSwordsAndClapboards;
+import testSuite.objects.pages.CommonPage;
 
-public class basic {
+/**
+ * Steps that can be performed on all of the pages for this site
+ */
+public class CommonSteps {
     @Given("the page is fully drawn")
     public void thePageIsFullyDrawn() {
         // the constructor for this sort of object will wait until it thinks that the page is complete
-        new PageSwordsAndClapboards(Context.driver);
+        new CommonPage(Context.defaultDriver);
     }
 
     @When("I click on the nav link with text {string}")
     public void iClickOnTheNavLinkWithText(String linkText) {
-        PageSwordsAndClapboards pageSwordsAndClapboards = new PageSwordsAndClapboards(Context.driver);
-        WebElement linkElement = pageSwordsAndClapboards.getNavItem(linkText);
+        CommonPage commonPage = new CommonPage(Context.defaultDriver);
+        WebElement linkElement = commonPage.getNavItem(linkText);
 
         Assert.assertTrue("The '" + linkText + "' link should be visible and enabled",
                 linkElement.isDisplayed() && linkElement.isEnabled()

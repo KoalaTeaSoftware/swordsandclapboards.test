@@ -6,16 +6,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import testFramework.Context;
-import testSuite.objects.PageContact;
+import testSuite.objects.pages.Contact;
 
 import java.util.Map;
 
 public class chapterContact {
-    private PageContact contactPage;
+    private Contact contactPage;
 
-    PageContact getMyPage() {
+    Contact getMyPage() {
         if (contactPage == null) {
-            contactPage = new PageContact(Context.driver);
+            contactPage = new Contact(Context.defaultDriver);
         }
         return contactPage;
     }

@@ -8,7 +8,7 @@ public class Hooks {
     @Before
     public void beforeScenario(Scenario givenScenario) {
         Context.scenario = givenScenario;
-        Context.driver = Context.defaultActor.getDriver();
+        Context.defaultDriver = Context.defaultActor.getDriver();
     }
 
     @After
