@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
+import testFramework.actors.Actor;
 import testFramework.helpers.resourceLocator;
 import testFramework.objects.W3cHtmlChecker;
 
@@ -31,6 +32,9 @@ public class HtmlSyntaxCheckSteps {
 
     @Then("the w3c HTML tester reports compliance")
     public void theW3CHTMLTesterReportsCompliance() {
-        Assert.assertTrue(url + ": (unescaped) should be syntactically correct", w3cHtmlValidator.fileValidates());
+        if (!w3cHtmlValidator.fileValidates()) {
+            Actor.writeToHtmlReport(w3cHtmlValidator.getErrorList());
+            Assert.fail(url + ": (unescaped) should be syntactically correct");
+        }
     }
 }

@@ -18,8 +18,9 @@ Feature: Contact Form operation & client-side verification
 
   Scenario: Send a message
   As this is the first scenario to be run, if is succeeds, it give confidence that the following failures are not false negatives
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
+    And the first heading is "Contact"
     When I enter the following data
       | name     | Donald Duck                                                                      |
       | address1 | alpha@bet1asdfghbet2asdfghbet3asdfghbet4asdfgh.com                               |
@@ -35,7 +36,7 @@ Feature: Contact Form operation & client-side verification
 
   Scenario Outline: Partially fill the form
   Using values (except for the missing value) that we saw work in the previous scenario
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter the following data
       | name     | <name>     |
@@ -55,7 +56,7 @@ Feature: Contact Form operation & client-side verification
 
   Scenario Outline: Provide an illegal name
   The form allows the entry of illegal chars but will not submit
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter the following data
       | name     | <name> |
@@ -71,7 +72,7 @@ Feature: Contact Form operation & client-side verification
 
   Scenario Outline: Provide an over-long name
   The field will truncate at the allowed length
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter the following data
       | name     | <name> |
@@ -86,7 +87,7 @@ Feature: Contact Form operation & client-side verification
 
   Scenario Outline: Provide non-matching email addresses
   These should be rejected when the send button is clicked
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter the following data
       | name     |            |
@@ -103,7 +104,7 @@ Feature: Contact Form operation & client-side verification
 
   Scenario: Provide over-long email addresses
   The will be truncated at the max length. Of course this could mean that the address is also syntactically incorrect
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter the following data
       | name     |                                                     |
@@ -116,7 +117,7 @@ Feature: Contact Form operation & client-side verification
 
   Scenario: Provide overlong subject
   This is verifying that the form will not submit if the offered values do not suit the parameters
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter the following data
       | name     |                                                     |
@@ -128,14 +129,14 @@ Feature: Contact Form operation & client-side verification
 
   Scenario: Provide overlong message
   The form will truncate
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter a message 5001 chars long
     Then the message field contains 5000 characters
 
   Scenario Outline: Provide too-short message
   These should be rejected when the send button is clicked
-    Given I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    Given I navigate to the page "contact"
     And the page is fully drawn
     When I enter the following data
       | name     | Duckal Dond        |
@@ -152,7 +153,7 @@ Feature: Contact Form operation & client-side verification
 
   Scenario: watch the message field's character counter
   Slightly unusual when/then, but you can see what is going on
-    When I navigate to the page "http://stage.swordsandclapboards.com/contact"
+    When I navigate to the page "contact"
     And the page is fully drawn
     Then the message counter field contains 5000
     When I enter a message 30 chars long

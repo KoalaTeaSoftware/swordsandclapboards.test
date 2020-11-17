@@ -24,7 +24,7 @@ public class chapterOnRelease {
     }
 
 
-    @And("there is more than {int} listed film")
+    @And("there is more than {int} listed film(s)")
     public void thereIsMoreThanListedFilm(int minNumListings) {
         int actualCount = getMe().getFilmListItems().size();
 

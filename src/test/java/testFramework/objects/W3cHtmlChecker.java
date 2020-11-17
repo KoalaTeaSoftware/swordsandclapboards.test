@@ -9,6 +9,8 @@ import testFramework.Context;
 import java.time.Duration;
 
 public class W3cHtmlChecker {
+//    Context.defaultDriver.findElement(By.xpath("/html/body/ol/li[@class='error']/ancestor::ol")).getAttribute("outerHTML")
+private final By errorList = By.xpath("//li[@class='error']/ancestor::ol");
 
     /**
      * It is best to aim this directly at the single files that you create.
@@ -47,5 +49,9 @@ public class W3cHtmlChecker {
         }
         // make the default result to be failure
         return false;
+    }
+
+    public String getErrorList() {
+        return Context.defaultDriver.findElement(errorList).getAttribute("outerHTML");
     }
 }
