@@ -9,7 +9,7 @@ Feature: Contact Form operation & client-side verification
   ** When the email is not sent
 
 #  $nameRegex = "[A-Za-z0-9 .\-]+";
-#  $maxNameLength = 30;
+#  $maxNameLength = 40;
 #  $maxEmailLength = 50;
 #  $maxSubjectLength = 50;
 #  $msgMaxLen = 5000;
@@ -80,10 +80,10 @@ Feature: Contact Form operation & client-side verification
       | address2 |        |
       | subject  |        |
       | message  |        |
-    Then the name field contains 30 characters
+    Then the name field contains 40 characters
     Examples:
-      | name                            |
-      | Donald DuckDonald DuckDonald Do |
+      | name                                      |
+      | Donald Duck Donald Duck Donald Donald Qua |
 
   Scenario Outline: Provide non-matching email addresses
   These should be rejected when the send button is clicked
@@ -166,3 +166,18 @@ Feature: Contact Form operation & client-side verification
     Then the message counter field contains 0
     And the message field contains 5000 characters
 
+  Scenario Outline: simulate invocation with pre-set subject
+    When I navigate to the page "contact?<testSubject>"
+    And the page is fully drawn
+    Then the subject field contains "<expectedSubjectContents>"
+    Examples:
+      | testSubject              | expectedSubjectContents |
+      | subject=who's your daddy | who's your daddy        |
+
+  Scenario Outline: simulate invocation with other request parameters don't break
+    When I navigate to the page "contact?<testSubject>"
+    And the page is fully drawn
+    Then the subject field contains "<expectedSubjectContents>"
+    Examples:
+      | testSubject              | expectedSubjectContents |
+      | subjict=who's your daddy |                         |

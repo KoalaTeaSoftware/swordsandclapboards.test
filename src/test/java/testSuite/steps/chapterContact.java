@@ -115,6 +115,15 @@ public class chapterContact {
                 numChars, getMyPage().getSubjectField().length());
     }
 
+    @Then("the subject field contains {string}")
+    public void theSubjectFieldContains(String expectedContents) {
+        Assert.assertEquals(
+                "Unexpected contents of the subject field",
+                expectedContents,
+                getMyPage().getSubjectField()
+        );
+    }
+
     @Then("the email1 field contains {int} characters")
     public void theEmail1FieldContainsCharacters(int numChars) {
         Assert.assertEquals("Unexpected number of characters in the first email field",
@@ -144,4 +153,6 @@ public class chapterContact {
         Assert.assertEquals("Unexpected char counter value",
                 num, getMyPage().getMessageCharCount());
     }
+
+
 }
