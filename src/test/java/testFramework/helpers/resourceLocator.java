@@ -20,7 +20,7 @@ public class resourceLocator {
     public static String interpretURL(String in) {
         String result = "";
         Matcher matcher;
-        final String regex = "^(https|http)?(://)?((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.+[A-Za-z]{2,6})?(.*)";
+        final String regex = "^(https|http)?(://)?((?!-)[A-Za-z0-9-.]{1,63}(?<!-)\\.+[A-Za-z]{2,6})?(.*)";
         final Pattern REGEX = Pattern.compile(regex);
         matcher = REGEX.matcher(in);
         if (matcher.find()) {

@@ -8,6 +8,10 @@ Feature: SUT Page titles and delivery
     And the page title is "Swords And Clapboards"
     Examples:
       | address                                            |
+      | stage.swordsandclapboards.com/                     |
+      | swordsandclapboards.com/                           |
+      | http://stage.swordsandclapboards.com/              |
+      | http://swordsandclapboards.com                     |
       | http://stage.swordsandclapboards.com/              |
       | http://stage.swordsandclapboards.com/home          |
       | http://stage.swordsandclapboards.com/about         |
