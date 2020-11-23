@@ -1,13 +1,12 @@
 package testFramework.actors;
 
-import org.junit.Assert;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import testFramework.Context;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class ChromeActor extends Actor {
@@ -26,23 +25,24 @@ public class ChromeActor extends Actor {
 
     @Override
     protected void startService() {
-        if (null == service) {
-            System.out.println("[info] Creating a Driver Service for Chrome");
-            // i.e. Lazy Instantiation of the Service
-            try {
-                String path = Context.testConfiguration.getProperty("chromeDriverPath");
-                //noinspection SpellCheckingInspection - webdriver is good
-                System.setProperty("webdriver.chrome.driver", path);
-                service = new ChromeDriverService.Builder()
-                        .usingDriverExecutable(new File(path))
-                        .usingAnyFreePort()
-                        .build();
-                service.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Assert.fail();
-            }
-        }
+        WebDriverManager.chromedriver().setup();
+        //        if (null == service) {
+        //            System.out.println("[info] Creating a Driver Service for Chrome");
+        //            // i.e. Lazy Instantiation of the Service
+        //            try {
+        //                String path = Context.testConfiguration.getProperty("chromeDriverPath");
+        //                //noinspection SpellCheckingInspection - webdriver is good
+        //                System.setProperty("webdriver.chrome.driver", path);
+        //                service = new ChromeDriverService.Builder()
+        //                        .usingDriverExecutable(new File(path))
+        //                        .usingAnyFreePort()
+        //                        .build();
+        //                service.start();
+        //            } catch (Exception e) {
+        //                e.printStackTrace();
+        //                Assert.fail();
+        //            }
+        //        }
     }
 
     //    // NB: this is unused at the moment, but is here for completeness

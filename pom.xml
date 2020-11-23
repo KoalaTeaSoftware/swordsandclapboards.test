@@ -34,7 +34,6 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-
         <!--without _one_ of the following 2, it can't find things like org.openqa, so might as well have both -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver -->
         <dependency>
@@ -48,12 +47,18 @@
             <artifactId>selenium-chrome-driver</artifactId>
             <version>3.141.59</version>
         </dependency>
-
         <!-- selenium-support is needed for the page factory -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-support</artifactId>
             <version>4.0.0-alpha-4</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- see https://github.com/bonigarcia/webdrivermanager - this could simplify web driver management -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>4.2.2</version>
             <scope>test</scope>
         </dependency>
 
