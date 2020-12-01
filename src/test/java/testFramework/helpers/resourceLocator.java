@@ -1,7 +1,6 @@
 package testFramework.helpers;
 
 import testFramework.Context;
-import testFramework.actors.Actor;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,15 +34,15 @@ public class resourceLocator {
                     result += matcher.group(4).charAt(0) == '/' ? matcher.group(4) : '/' + matcher.group(4);
                 return result;
             } catch (NoSuchFieldException e) {
-                Actor.writeToHtmlReport("Unable to supply a default scheme, or host");
+                Reports.writeToHtmlReport("Unable to supply a default scheme, or host");
             }
         }
         // if we have got here, there has been a problem (e.g. unable to match, or get defaults (if needed))
-        Actor.writeToHtmlReport("Unable to make a good URL out of >" + in + "<");
-        Actor.writeToHtmlReport("scheme: " + matcher.group(1));
-        Actor.writeToHtmlReport("scheme's magic letters: " + matcher.group(2));
-        Actor.writeToHtmlReport("host: " + matcher.group(3));
-        Actor.writeToHtmlReport("the rest: " + matcher.group(4));
+        Reports.writeToHtmlReport("Unable to make a good URL out of >" + in + "<");
+        Reports.writeToHtmlReport("scheme: " + matcher.group(1));
+        Reports.writeToHtmlReport("scheme's magic letters: " + matcher.group(2));
+        Reports.writeToHtmlReport("host: " + matcher.group(3));
+        Reports.writeToHtmlReport("the rest: " + matcher.group(4));
         return null;
     }
 
