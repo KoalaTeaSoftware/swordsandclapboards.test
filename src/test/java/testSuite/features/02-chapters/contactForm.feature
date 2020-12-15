@@ -16,22 +16,23 @@ Feature: Contact Form operation & client-side verification
 #  $msgMinLen = 10;
 
 #  Rule: If a message is successfully sent, the user knows it
-  Scenario: Send a message
-  As this is the first scenario to be run, if is succeeds, it give confidence that the following failures are not false negatives
-    Given I navigate to the page "contact"
-    And the page is fully drawn
-    And the first heading is "Contact"
-    When I enter the following data
-      | name     | Donald Duck                                                                      |
-      | address1 | alpha@bet1asdfghbet2asdfghbet3asdfghbet4asdfgh.com                               |
-      | address2 | alpha@bet1asdfghbet2asdfghbet3asdfghbet4asdfgh.com                               |
-      | subject  | This is a test message, please delete it                                         |
-      | message  | If you don't delete it, it will just clutter up you inbox and you won't be happy |
-    And I send the message
-    And an attempt to send is made
-    Then the form is not visible
-    And confirmation of sending is shown
-    And the sending was successful
+  #ToDo: add in some sort of API testing that finds the sent message, and deletes it. Until then don't have this as part of the CD suite
+#  Scenario: Send a message
+#  As this is the first scenario to be run, if is succeeds, it give confidence that the following failures are not false negatives
+#    Given I navigate to the page "contact"
+#    And the page is fully drawn
+#    And the first heading is "Contact"
+#    When I enter the following data
+#      | name     | Donald Duck                                                                      |
+#      | address1 | alpha@bet1asdfghbet2asdfghbet3asdfghbet4asdfgh.com                               |
+#      | address2 | alpha@bet1asdfghbet2asdfghbet3asdfghbet4asdfgh.com                               |
+#      | subject  | This is a test message, please delete it                                         |
+#      | message  | If you don't delete it, it will just clutter up you inbox and you won't be happy |
+#    And I send the message
+#    And an attempt to send is made
+#    Then the form is not visible
+#    And confirmation of sending is shown
+#    And the sending was successful
 
 #  Rule: If the information supplied by the user is inadequate or illegal, the message will not be sent
   Scenario Outline: Partially fill the form
