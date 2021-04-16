@@ -1,4 +1,4 @@
-@smoke
+@smoke @ci
 Feature: SUT Page titles and delivery
   If these pages do not draw fully, then further testing is very likely to give false failures.
 

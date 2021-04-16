@@ -1,4 +1,5 @@
-Feature: About
+@ci
+Feature: Chapter: About
   Much of this page is a simple page, so the only real risks are things like syntax failures, or malformed images
   The section about Rose finishes with here On Release, but this is treated as a separate feature
 

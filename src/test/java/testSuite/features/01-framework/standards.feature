@@ -1,4 +1,4 @@
-@standards
+@standards @ci
 Feature: Standards Compliance
   Syntax errors could be a reason for functional failure, so it is worth regarding this as a smoke test as well.
 

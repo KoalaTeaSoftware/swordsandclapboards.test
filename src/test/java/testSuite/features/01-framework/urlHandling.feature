@@ -1,4 +1,4 @@
-@functional
+@functional @ci
 Feature: Friendly URLs
   The site allows (and only really responds to) the use of friendly URLs.
   'Good' urls are tested on each of the pages.

@@ -1,4 +1,4 @@
-@functional
+@functional @ci
 Feature: Contact Form operation & client-side verification
   The contact form should ensure that:
   * data is provided in all of the fields
