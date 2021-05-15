@@ -3,7 +3,7 @@ package testSuite.steps;
 import io.cucumber.java.en.And;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-import org.testng.asserts.SoftAssert;
+import testFramework.helpers.softAssert;
 import testFramework.Context;
 import testSuite.objects.pages.OnRelease;
 
@@ -35,7 +35,7 @@ public class chapterOnRelease {
 
     @And("all thumbnails are shown")
     public void allThumbnailsAreShown() {
-        SoftAssert sa = new SoftAssert();
+        softAssert sa = new softAssert();
         int idx = 0;
 
         for (WebElement el : getMe().getFilmThumbnails()) {
@@ -58,7 +58,7 @@ public class chapterOnRelease {
 
     @And("all titles are populated")
     public void allTitlesArePopulated() {
-        SoftAssert sa = new SoftAssert();
+        softAssert sa = new softAssert();
         int idx = 0;
 
         for (WebElement el : getMe().getFilmTitles()) {
@@ -75,7 +75,7 @@ public class chapterOnRelease {
 
     @And("all puff paragraphs are populated")
     public void allPuffParagraphsArePopulated() {
-        SoftAssert sa = new SoftAssert();
+        softAssert sa = new softAssert();
         int idx = 0;
 
         for (WebElement el : getMe().getFilmPuffs()) {

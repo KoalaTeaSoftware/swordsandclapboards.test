@@ -5,9 +5,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-import org.testng.asserts.SoftAssert;
 import testFramework.Context;
 import testFramework.helpers.resourceLocator;
+import testFramework.helpers.softAssert;
 import testFramework.objects.HtmlPageObject;
 
 import java.net.MalformedURLException;
@@ -78,12 +78,13 @@ public class HtmlPageSteps {
 
     @Then("all images are well formed")
     public void allImagesAreWellFormed() {
-        SoftAssert sa = new SoftAssert();
+        softAssert sa = new softAssert();
         List<WebElement> imgList = getMyPage().listImgTags();
 
         final int numImgs = imgList.size();
 
         for (int i = 0; i < numImgs; i++) {
+
             sa.assertTrue(
                     getMyPage().browserShowsImage(imgList.get(i)),
                     "Image number " + i + "does not appear to be well formed");

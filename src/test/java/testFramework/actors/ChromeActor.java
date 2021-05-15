@@ -26,33 +26,7 @@ public class ChromeActor extends Actor {
     @Override
     protected void startService() {
         WebDriverManager.chromedriver().setup();
-        //        if (null == service) {
-        //            System.out.println("[info] Creating a Driver Service for Chrome");
-        //            // i.e. Lazy Instantiation of the Service
-        //            try {
-        //                String path = Context.testConfiguration.getProperty("chromeDriverPath");
-        //                //noinspection SpellCheckingInspection - webdriver is good
-        //                System.setProperty("webdriver.chrome.driver", path);
-        //                service = new ChromeDriverService.Builder()
-        //                        .usingDriverExecutable(new File(path))
-        //                        .usingAnyFreePort()
-        //                        .build();
-        //                service.start();
-        //            } catch (Exception e) {
-        //                e.printStackTrace();
-        //                Assert.fail();
-        //            }
-        //        }
     }
-
-    //    // NB: this is unused at the moment, but is here for completeness
-    //    @Override
-    //    protected void stopService() {
-    //        if (null != service && service.isRunning()) {
-    //            System.out.println("[info] Stopping the Driver Service for Chrome");
-    //            service.stop();
-    //        }
-    //    }
 
     @Override
     public void createDriver() {

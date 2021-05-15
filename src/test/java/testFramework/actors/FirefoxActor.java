@@ -13,38 +13,7 @@ public class FirefoxActor extends Actor {
     @Override
     protected void startService() {
         WebDriverManager.firefoxdriver().setup();
-        //        if (service == null) {
-        //            System.out.println("[info] Creating a Driver Service for Firefox");
-        //            try {
-        ////                String logLoc = System.getProperty("user.dir");
-        ////                logLoc += File.separator + ContextOfTest.testConfiguration.getProperty("driverLogLocation");
-        ////                logLoc += File.separator + "Firefox-" + DateHelpers.uniqueFileName() + ".txt";
-        //
-        //                String driverPath = Context.testConfiguration.getProperty("firefoxDriverPath");
-        //
-        //                FirefoxOptions options = new FirefoxOptions();
-        //                options.setLogLevel(FirefoxDriverLogLevel.DEBUG);
-        //
-        //                service = new GeckoDriverService.Builder()
-        //                        .usingDriverExecutable(new File(driverPath))
-        //                        .usingAnyFreePort()
-        //                        //                        .withLogFile(new File(logLoc))
-        //                        .build();
-        //            } catch (Exception e) {
-        //                e.printStackTrace();
-        //                Assert.fail();
-        //            }
-        //        }
     }
-
-    //    @Override
-    //    protected void stopService() {
-    //        if (null != service && service.isRunning()) {
-    //            System.out.println("[info] Stopping the Driver Service for Firefox");
-    //            service.stop();
-    //        }
-    //
-    //    }
 
     @Override
     public void createDriver() {

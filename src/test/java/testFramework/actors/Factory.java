@@ -2,6 +2,7 @@ package testFramework.actors;
 
 public class Factory {
     public static Actor make(ActorType type) {
+        //noinspection CommentedOutCode
         switch (type) {
             case CHROME:
                 return new ChromeActor();

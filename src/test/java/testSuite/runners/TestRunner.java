@@ -28,10 +28,10 @@ By default, Cucumber features/scenarios are run in the order:
                 // see https://gitlab.com/monochromata-de/cucumber-reporting-plugin
                 "de.monochromata.cucumber.report.PrettyReports:target/"
         }
-        //        , tags = "@smoke"
+//                , tags = "@smoke"
         //        , tags = "@standards"
         , tags = "@ci and (not (@not-ci or @wip))"
-        //                ,dryRun = true
+//                        ,dryRun = true
 )
 
 public class TestRunner {

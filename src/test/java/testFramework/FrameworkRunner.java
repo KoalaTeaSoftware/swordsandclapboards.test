@@ -20,8 +20,8 @@ import org.junit.runner.RunWith;
                 // see https://gitlab.com/monochromata-de/cucumber-reporting-plugin
                 "de.monochromata.cucumber.report.PrettyReports:target/"
         }
-        , tags = "@standards or @smoke"
-        //        , dryRun = true
+        , tags = "@smoke"
+//                , dryRun = true
 )
 
 public class FrameworkRunner {
