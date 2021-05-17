@@ -17,6 +17,7 @@ public class W3cLinkChecker {
      * For example, Bootstrap's css invokes error messages (false negatives?) from this tester.
      *
      * @param urlOfCssFile - make it a single file.Scheme is not necessary
+     * @param tout - the time out a Duration
      */
     public W3cLinkChecker(String urlOfCssFile, Duration tout) throws TimeoutException {
         String sut = "https://validator.w3.org/checklink?uri=";
