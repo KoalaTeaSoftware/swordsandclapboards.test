@@ -9,6 +9,7 @@ import testFramework.helpers.Reports;
 import testFramework.helpers.resourceLocator;
 import testFramework.objects.W3cHtmlChecker;
 
+import java.io.UnsupportedEncodingException;
 import java.time.Duration;
 
 import static testFramework.helpers.DateHelpers.humanReadableDuration;
@@ -26,8 +27,9 @@ public class HtmlSyntaxCheckSteps {
         } catch (TimeoutException e) {
             Assert.fail("Failed to find results from:" + url + ": in " + humanReadableDuration(tout) + " " +
                     "seconds");
+        } catch (UnsupportedEncodingException e) {
+            Assert.fail("Internal Error: Failed to interpret:" + url + ": " + e.getMessage() + ":");
         }
-
     }
 
     @Then("the w3c HTML tester reports compliance")

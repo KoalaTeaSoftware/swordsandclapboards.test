@@ -6,11 +6,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import testFramework.Context;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 
 public class W3cHtmlChecker {
-//    Context.defaultDriver.findElement(By.xpath("/html/body/ol/li[@class='error']/ancestor::ol")).getAttribute("outerHTML")
-private final By errorList = By.xpath("//li[@class='error']/ancestor::ol");
+    //    Context.defaultDriver.findElement(By.xpath("/html/body/ol/li[@class='error']/ancestor::ol")).getAttribute("outerHTML")
+    private final By errorList = By.xpath("//li[@class='error']/ancestor::ol");
 
     /**
      * It is best to aim this directly at the single files that you create.
@@ -18,10 +21,10 @@ private final By errorList = By.xpath("//li[@class='error']/ancestor::ol");
      *
      * @param urlOfHtmlFile - make it a single file.Scheme is not necessary
      */
-    public W3cHtmlChecker(String urlOfHtmlFile, Duration tout) {
-        String sut = "https://html5.validator.nu/?doc=";
-        sut += urlOfHtmlFile;
-        sut += "&parser=html";
+    public W3cHtmlChecker(String urlOfHtmlFile, Duration tout) throws UnsupportedEncodingException {
+
+        String sut = "https://validator.w3.org/nu/?doc=";
+        sut += URLEncoder.encode(urlOfHtmlFile, StandardCharsets.UTF_8.toString());
 
         Context.defaultActor.getResource(sut);
 
@@ -31,24 +34,13 @@ private final By errorList = By.xpath("//li[@class='error']/ancestor::ol");
     }
 
     /**
-     * On both the success and failure pages, the first h3 tells you the result
+     * A <p> with class of success only occurs if it passes the test
+     * The implicit page wait comes into play when the page is faulty
      *
      * @return - whether it contains text that indicates success, or failure
      */
     public Boolean fileValidates() {
-        String resultString;
-        /*
-        <p class="success">The document validates according to the specified schema(s).</p>
-         */
-        try {
-            resultString = Context.defaultDriver.findElement(By.className("success")).getText();
-            if (resultString.contains(" document is valid ")) {
-                return true;
-            }
-        } catch (NoSuchElementException ignored) {
-        }
-        // make the default result to be failure
-        return false;
+        return Context.defaultDriver.findElement(By.className("success")).isDisplayed();
     }
 
     public String getErrorList() {
