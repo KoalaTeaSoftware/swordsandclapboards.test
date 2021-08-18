@@ -37,12 +37,12 @@ public class HtmlPageSteps {
         if (expected.isEmpty()) {
             try {
                 expected = Context.sutConfiguration.getProperty("defaultTitle");
-                Assert.assertEquals("The page title is not as expected", expected, getMyPage().readPageTitle());
             } catch (NoSuchFieldException e) {
                 Assert.fail("The expected title has not been defined in the UST configuration, and not defined in " +
                         "this test step");
             }
         }
+        Assert.assertEquals("The page title is not as expected", expected, getMyPage().readPageTitle());
     }
 
     @And("the first heading is {string}")

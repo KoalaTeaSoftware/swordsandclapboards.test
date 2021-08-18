@@ -1,5 +1,6 @@
 package testFramework.helpers;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import testFramework.Context;
@@ -20,7 +21,7 @@ public class Reports {
     }
 
     public static void writePageSourceToHtmlReport() {
-        writeToHtmlReport(Context.defaultDriver.getPageSource());
+        writeToHtmlReport(StringEscapeUtils.escapeHtml4(Context.defaultDriver.getPageSource()));
     }
 
     /**

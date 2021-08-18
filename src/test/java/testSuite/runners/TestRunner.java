@@ -24,10 +24,7 @@ By default, Cucumber features/scenarios are run in the order:
         plugin = {
                 "pretty",
                 "html:target/stdReports",
-                "json:target/cucumber.json",
-                // ToDo: replace this with a modern one
-                // see https://gitlab.com/monochromata-de/cucumber-reporting-plugin
-//                "de.monochromata.cucumber.report.PrettyReports:target/"
+                "json:target/cucumber-report/cucumber.json"
         }
 //                , tags = "@smoke"
         //        , tags = "@standards"
