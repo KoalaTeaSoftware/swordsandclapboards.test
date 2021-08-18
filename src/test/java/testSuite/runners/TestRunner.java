@@ -15,7 +15,7 @@ By default, Cucumber features/scenarios are run in the order:
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        strict = true,
+        // features is vital, although IntelliJ doesn't think it is
         features = "src/test/java/testSuite/features", // all of the features in the test suite
         glue = { // a list of package names, not directly related to file paths
                 "testFramework", // the @Before and @After will not be run unless the package containing them is listed here
@@ -25,8 +25,9 @@ By default, Cucumber features/scenarios are run in the order:
                 "pretty",
                 "html:target/stdReports",
                 "json:target/cucumber.json",
+                // ToDo: replace this with a modern one
                 // see https://gitlab.com/monochromata-de/cucumber-reporting-plugin
-                "de.monochromata.cucumber.report.PrettyReports:target/"
+//                "de.monochromata.cucumber.report.PrettyReports:target/"
         }
 //                , tags = "@smoke"
         //        , tags = "@standards"

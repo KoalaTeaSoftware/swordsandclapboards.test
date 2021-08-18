@@ -12,7 +12,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <maven.compiler.version>3.3</maven.compiler.version>
-        <cucumber.version>5.4.0</cucumber.version>
+        <cucumber.version>6.11.0</cucumber.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <junit.version>4.12</junit.version>
@@ -53,27 +53,13 @@
             <version>4.0.0-alpha-4</version>
             <scope>test</scope>
         </dependency>
-        <!-- see https://github.com/bonigarcia/webdrivermanager - this could simplify web driver management -->
+        <!-- see https://github.com/bonigarcia/webdrivermanager -->
+        <!-- note that, despite it appearing otherwise, on a Win10 device, you will have to have rhe browser installed -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>4.2.2</version>
+            <version>4.4.3</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- to provide prettier HTML reports -->
-        <dependency>
-            <groupId>de.monochromata.cucumber</groupId>
-            <artifactId>reporting-plugin</artifactId>
-            <version>4.0.29</version>
-        </dependency>
-
-        <!-- Ability to talk to HTTP servers -->
-        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
-        <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>4.1.2</version>
         </dependency>
 
         <!-- parsing of JSON -->
@@ -81,21 +67,16 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20190722</version>
+            <version>20210307</version>
         </dependency>
 
-        <!-- for the soft asserts>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.1.0</version>
-            <scope>test</scope>
-        </dependency -->
+        <!-- Do not be tempted to use TestNG (for soft asserts, for example), it is not a straightforward as you'd like -->
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <!-- This provides you with the ability to execute mvn verify, which you will want to do if automating the test in a CI/CD environment -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.version}</version>
@@ -113,8 +94,9 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <includes>
-                        <!-- Run all testSuite test runners -->
-                        <include>**/testSuite/runners/*.java</include>
+                        <include>**/testFramework/FrameworkRunner.java</include>
+                        <!-- Run all testSuite test runners>
+                        <include>**/testSuite/runners/*.java</include -->
                     </includes>
                     <testFailureIgnore>false</testFailureIgnore>
                 </configuration>

@@ -13,7 +13,7 @@ public class Reports {
             TakesScreenshot ts = (TakesScreenshot) Context.defaultDriver;
             byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
 
-            Context.scenario.embed(screenshot, "image/png", label);
+            Context.scenario.attach(screenshot, "image/png", label);
         } catch (Exception e) {
             writeToHtmlReport("Unable to capture the screenshot: " + e.getMessage());
         }
@@ -29,6 +29,6 @@ public class Reports {
      * @param message - what you ant to see in the report
      */
     public static void writeToHtmlReport(String message) {
-        Context.scenario.write(message);
+        Context.scenario.log(message);
     }
 }
