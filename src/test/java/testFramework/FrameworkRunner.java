@@ -18,8 +18,10 @@ import org.junit.runner.RunWith;
                 "html:target/stdReports.html",
                 "json:target/cucumber.json",
         }
-        , tags = "@smoke"
-//                , dryRun = true
+        , tags = "(not @wip) and @smoke"
+//        , tags = "(not @wip) and (not @pot) and @smoke"
+//        , tags = "(not @wip) and @pot"
+//        , dryRun = true
 )
 
 public class FrameworkRunner {

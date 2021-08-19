@@ -3,26 +3,26 @@ package testFramework.helpers;
 import static testFramework.helpers.Reports.writeToHtmlReport;
 
 public class softAssert {
-    private boolean crashed;
     private final String setName;
+    private boolean iHaveSeenAFailure;
 
     public softAssert() {
-        this.crashed = false;
-        this.setName = "Undefined";
+        this.iHaveSeenAFailure = false;
+        this.setName = "Unnamed";
     }
 
     public softAssert(String setName) {
-        this.crashed = false;
+        this.iHaveSeenAFailure = false;
         this.setName = setName;
     }
 
     public void assertAll() {
-        assertTrue(crashed, "One of the assertion for this set (" + setName + ") failed");
+        assertTrue(!iHaveSeenAFailure, "One of the assertion for this set (" + setName + ") failed");
     }
 
     public void assertTrue(boolean flag, String s) {
         if (!flag) {
-            this.crashed = true;
+            this.iHaveSeenAFailure = true;
             writeToHtmlReport(s);
         }
     }

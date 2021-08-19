@@ -23,8 +23,8 @@ By default, Cucumber features/scenarios are run in the order:
         },
         plugin = {
                 "pretty",
-                "html:target/stdReports",
-                "json:target/cucumber-report/cucumber.json"
+                "html:target/cucumber.html",
+                "json:target/cucumber.json"
         }
 //                , tags = "@smoke"
         //        , tags = "@standards"
