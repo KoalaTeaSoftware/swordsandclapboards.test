@@ -26,10 +26,10 @@ By default, Cucumber features/scenarios are run in the order:
                 "html:target/cucumber.html",
                 "json:target/cucumber.json"
         }
-//                , tags = "@smoke"
-        //        , tags = "@standards"
-        , tags = "@ci and (not (@not-ci or @wip))"
-//                        ,dryRun = true
+        , tags = "(not @wip) and (not @pot)"
+//        , tags = "(not @wip) and @pot"
+//        , tags = "@ci and (not (@not-ci or @wip))"
+//        , dryRun = true
 )
 
 public class TestRunner {

@@ -6,7 +6,7 @@
 
     <groupId>com.koalateasoftware</groupId>
     <artifactId>SwordsAndClapboards-test</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,11 +20,18 @@
 
     <dependencies>
         <dependency>
+            <!-- this is used for the encoding of HTML -->
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
             <version>1.4</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.4.0</version>
+            <scope>test</scope>
+        </dependency>
         <!-- fundamental - give @Given and so on -->
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -39,7 +46,7 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--without _one_ of the following 2, it can't find things like org.openqa, so might as well have both -->
+        <!-- without _one_ of the following 2, it can't find things like org.openqa, so might as well have both -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -67,7 +74,6 @@
             <version>4.4.3</version>
             <scope>test</scope>
         </dependency>
-
         <!-- parsing of JSON -->
         <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
@@ -75,10 +81,8 @@
             <artifactId>json</artifactId>
             <version>20210307</version>
         </dependency>
-
         <!-- Do not be tempted to use TestNG (for soft asserts, for example), it is not a straightforward as you'd like -->
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -92,7 +96,6 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <!-- to allow Maven to know how to run the cucumber tests -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -100,16 +103,14 @@
                 <version>3.0.0-M5</version>
                 <configuration>
                     <includes>
-                        <!-- uncomment this line to make mvn just run the framework features -->
-                        <include>**/testFramework/FrameworkRunner.java</include>
-                        <!-- Run all testSuite test runners>
-                        <include>**/testSuite/runners/*.java</include -->
+                        <!-- uncomment this line during proving the framework to make mvn just run the framework features -->
+                        <!--                        <include>**/testFramework/FrameworkRunner.java</include>-->
+                        <!-- In normal use, use this to make mvn run all testSuite's test runners -->
+                        <include>**/testSuite/runners/*.java</include>
                     </includes>
                     <testFailureIgnore>false</testFailureIgnore>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
-
 </project>

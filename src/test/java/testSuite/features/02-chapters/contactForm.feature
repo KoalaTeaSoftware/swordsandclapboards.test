@@ -1,5 +1,6 @@
-@functional @ci
+@ci
 Feature: Contact Form operation & client-side verification
+  This feature file assumes that you have run the @smoke tests
   The contact form should ensure that:
   * data is provided in all of the fields
   * the data is useful / not harmful

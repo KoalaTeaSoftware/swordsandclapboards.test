@@ -1,8 +1,8 @@
-@functional @ci
+@smoke
 Feature: Friendly URLs
   The site allows (and only really responds to) the use of friendly URLs.
-  'Good' urls are tested on each of the pages.
-  This set sees that bad urls don't cause a problem
+  All of the 'Good' urls are tested on each of the pages are tested in other parts of the smoke and in the functional tests
+  This set sees that 'bad' urls don't cause a problem
 
   Scenario Outline: Friendly treatment of rubbish urls
     Given I navigate to the page "<url>"

@@ -23,7 +23,7 @@ public class W3cHtmlChecker {
      */
     public W3cHtmlChecker(String urlOfHtmlFile, Duration tout) throws UnsupportedEncodingException {
 
-        String sut = "https://validator.w3.org/nu/?doc=";
+        String sut = "https://validator.w3.org/nu/?showoutline=yes&doc=";
         sut += URLEncoder.encode(urlOfHtmlFile, StandardCharsets.UTF_8.toString());
 
         Context.defaultActor.getResource(sut);
