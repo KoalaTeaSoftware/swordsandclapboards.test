@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.koalateasoftware</groupId>
     <artifactId>SwordsAndClapboards-test</artifactId>
-    <version>2.1</version>
+    <version>1.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -25,7 +25,6 @@
             <artifactId>commons-text</artifactId>
             <version>1.4</version>
         </dependency>
-        <!-- For the management of RESTful API testing -->
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -105,9 +104,9 @@
                 <configuration>
                     <includes>
                         <!-- uncomment this line during proving the framework to make mvn just run the framework features -->
-                        <!-- include>**/runners/**SuiteRunner.java</include -->
+                        <!--                        <include>**/testFramework/FrameworkRunner.java</include>-->
                         <!-- In normal use, use this to make mvn run all testSuite's test runners -->
-                        <include>**/runners/**SuiteRunner.java</include>
+                        <include>**/testSuite/runners/*.java</include>
                     </includes>
                     <testFailureIgnore>false</testFailureIgnore>
                 </configuration>
