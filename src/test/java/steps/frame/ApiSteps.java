@@ -50,26 +50,56 @@ public class ApiSteps {
 
     @And("the response {string} header contains {string}")
     public void theResponseHeaderContains(String headerName, String toFind) {
+        String haystack = getResponseHeaderText(headerName);
+        String needle = massageToFind(toFind);
+
+        Assert.assertTrue(
+                "Should be able to find:" + needle + ": in :" + haystack + ":",
+                haystack.contains(needle)
+        );
+    }
+
+    @And("the response {string} header does not contain {string}")
+    public void theResponseHeaderDoesNotContain(String headerName, String toFind) {
+        String haystack = getResponseHeaderText(headerName);
+        String needle = massageToFind(toFind);
+
+        Assert.assertFalse(
+                "Should NOT be able to find:" + needle + ": in :" + haystack + ":",
+                haystack.contains(needle)
+        );
+    }
+
+    /**
+     * Try to find a header on the response that answers to the name that uou give. Will fail nicely
+     *
+     * @param headerName - what to look for
+     * @return - what was found
+     */
+    private String getResponseHeaderText(String headerName) {
         try {
-            String haystack = response.header(headerName).toLowerCase();
-            Assert.assertTrue(
-                    "Unable to find a header called :" + headerName + ":",
-                    haystack.length() > 5);
-
-            String errorMessage = URLEncoder.encode(toFind, String.valueOf(StandardCharsets.UTF_8)).toLowerCase();
-
-            Assert.assertTrue(
-                    "Should be able to find:" + errorMessage + ": in :" + haystack + ":",
-                    haystack.contains(errorMessage)
-            );
-        } catch (UnsupportedEncodingException e) {
-            Assert.fail("Internal error munging the headers of the response");
-            e.printStackTrace();
+            return response.header(headerName).toLowerCase();
         } catch (NullPointerException e) {
-            Reports.writeToHtmlReport("All header from the response:\n" + response.headers().toString());
-            Assert.fail(
-                    "It is likely that the header :" + headerName + ": is not present in the response.");
+            Reports.writeToHtmlReport("[info] All header from the response:\n" + response.headers().toString());
+            Assert.fail("It is likely that the header :" + headerName + ": is not present in the response.");
         }
+        return "";
+    }
+
+    /**
+     * It is most likely that the header's text will be URL encoded, therefore URL encode the search string too.  Will fail nicely
+     *
+     * @param toFind - the string to be encoded
+     * @return - the encoded version of the input
+     */
+    private String massageToFind(String toFind) {
+        try {
+            return URLEncoder.encode(toFind, String.valueOf(StandardCharsets.UTF_8)).toLowerCase();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            Assert.fail("Internal error encoding the search string.");
+        }
+        return "";
     }
 
 
@@ -84,7 +114,6 @@ public class ApiSteps {
 
         while (iterator.hasNext()) {
             Map.Entry<String, String> entry = iterator.next();
-            System.out.println(entry.getKey() + ":" + entry.getValue());
             request.param(entry.getKey(), entry.getValue());
         }
 
