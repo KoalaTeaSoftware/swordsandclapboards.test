@@ -8,7 +8,8 @@ Feature: Handling of disallowed verbs
   The obviously bad verbs should give an appropriate error message
     When I "<method>" from api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
     Then the the response status is 302
-    And there is an error message containing "Message not sent"
+    And the response "location" header contains "error"
+    And the response "location" header contains "Message not sent"
     Examples:
       | method |
       | get    |

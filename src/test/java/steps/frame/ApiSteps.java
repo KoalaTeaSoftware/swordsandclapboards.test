@@ -1,9 +1,13 @@
 package steps.frame;
 
+import helpers.Reports;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
@@ -11,6 +15,8 @@ import org.junit.Assert;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+import java.util.Map;
 
 
 public class ApiSteps {
@@ -42,16 +48,15 @@ public class ApiSteps {
         response.then().statusCode(arg0);
     }
 
-    @And("there is an error message containing {string}")
-    public void thereIsAnErrorMessageContaining(String arg0) {
+    @And("the response {string} header contains {string}")
+    public void theResponseHeaderContains(String headerName, String toFind) {
         try {
-            String haystack = response.header("Location").toLowerCase();
-            String errorIndicator = URLEncoder.encode("errors=", String.valueOf(StandardCharsets.UTF_8)).toLowerCase();
-            String errorMessage = URLEncoder.encode(arg0, String.valueOf(StandardCharsets.UTF_8)).toLowerCase();
-
+            String haystack = response.header(headerName).toLowerCase();
             Assert.assertTrue(
-                    "Should be able to find:" + errorIndicator + ": in :" + haystack + ":",
-                    haystack.contains(errorIndicator));
+                    "Unable to find a header called :" + headerName + ":",
+                    haystack.length() > 5);
+
+            String errorMessage = URLEncoder.encode(toFind, String.valueOf(StandardCharsets.UTF_8)).toLowerCase();
 
             Assert.assertTrue(
                     "Should be able to find:" + errorMessage + ": in :" + haystack + ":",
@@ -60,7 +65,29 @@ public class ApiSteps {
         } catch (UnsupportedEncodingException e) {
             Assert.fail("Internal error munging the headers of the response");
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            Reports.writeToHtmlReport("All header from the response:\n" + response.headers().toString());
+            Assert.fail(
+                    "It is likely that the header :" + headerName + ": is not present in the response.");
         }
     }
 
+
+    @Given("I post the following data to the api at {string}")
+    public void iPostTheFollowingDataToTheApiAt(String location, DataTable dataTable) {
+        Map<String, String> dataMap = dataTable.asMap(String.class, String.class);
+
+        Iterator<Map.Entry<String, String>> iterator = dataMap.entrySet().iterator();
+
+        request.header("Accept", ContentType.JSON.getAcceptHeader());
+        request.urlEncodingEnabled(true);
+
+        while (iterator.hasNext()) {
+            Map.Entry<String, String> entry = iterator.next();
+            System.out.println(entry.getKey() + ":" + entry.getValue());
+            request.param(entry.getKey(), entry.getValue());
+        }
+
+        response = request.post(location);
+    }
 }

@@ -8,6 +8,8 @@ Feature: The framework allows you to test restful APIs
 #    When I get from api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
     When I "<method>" from api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
     Then the the response status is 302
+    And the response "Location" header contains "error"
+    And the response "Location" header contains "Message not sent"
     Examples:
       | method |
       | get    |
