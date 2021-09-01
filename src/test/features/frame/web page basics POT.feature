@@ -1,4 +1,4 @@
-@smoke @pot
+@pot
 Feature: Web Page Basics - Proof of Tests
   As a test engineer, so that I can have confidence in the test framework, I want to see deliberate failures reported
 

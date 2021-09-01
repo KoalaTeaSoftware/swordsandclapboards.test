@@ -1,5 +1,5 @@
-@smoke @pot
-Feature: Default Resource Locations
+@pot
+Feature: Default Resource Locations - Proof of Tests
   As a test engineer,
   So that I have confidence in the specification of default resource location,
   I want to be able to see failures reported when the inherent expectations are not met

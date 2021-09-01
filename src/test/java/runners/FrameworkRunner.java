@@ -15,9 +15,10 @@ import org.junit.runner.RunWith;
                 "steps.sut"
         },
         plugin = {
-                "pretty",
-                "html:target/stdReports.html",
-                "json:target/cucumber.json",
+//                "pretty",
+//                "html:target/htmlReport",
+//                "json:target/cucumber.json",
+                "me.jvt.cucumber.report.PrettyReports:target"
         }
         , tags = "(not @wip)"
 //        , tags = "(not @wip) and (not @pot) and @smoke"

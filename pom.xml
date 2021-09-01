@@ -82,6 +82,13 @@
             <artifactId>json</artifactId>
             <version>20210307</version>
         </dependency>
+        <!-- This is what gives the nice html reports -->
+        <!-- https://gitlab.com/jamietanna/cucumber-reporting-plugin -->
+        <dependency>
+            <groupId>me.jvt.cucumber</groupId>
+            <artifactId>reporting-plugin</artifactId>
+            <version>5.2.1</version>
+        </dependency>
         <!-- Do not be tempted to use TestNG (for soft asserts, for example), it is not a straightforward as you'd like -->
     </dependencies>
     <build>
@@ -107,7 +114,7 @@
                         <!-- uncomment this line during proving the framework to make mvn just run the framework features -->
                         <!-- include>**/runners/**SuiteRunner.java</include -->
                         <!-- In normal use, use this to make mvn run all testSuite's test runners -->
-                        <include>**/runners/**SuiteRunner.java</include>
+                        <include>**/runners/**.java</include>
                     </includes>
                     <testFailureIgnore>false</testFailureIgnore>
                 </configuration>
