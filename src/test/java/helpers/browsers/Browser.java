@@ -1,8 +1,8 @@
-package helpers.actors;
+package helpers.browsers;
 
 import org.openqa.selenium.WebDriver;
 
-public abstract class Actor {
+public abstract class Browser {
     // My own local copy  of a web driver, it will be lazily created if it is ever wanted
     protected WebDriver myOwnDriver = null;
 
@@ -21,7 +21,7 @@ public abstract class Actor {
     /**
      * The constructor, it forces the starting of the service that is relevant to this sort of Actor, no more
      */
-    public Actor() {
+    public Browser() {
         startService();
     }
 

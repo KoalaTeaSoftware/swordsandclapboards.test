@@ -17,7 +17,7 @@ public class CommonSteps {
     private CommonSutPage myPage = null;
     private CommonSutPage getMyPage() {
         if (myPage == null)
-            myPage = new CommonSutPage(Context.defaultActor.getDriver());
+            myPage = new CommonSutPage(Context.defaultBrowser.getDriver());
         return myPage;
     }
 

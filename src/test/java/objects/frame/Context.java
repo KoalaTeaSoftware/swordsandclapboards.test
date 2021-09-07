@@ -1,9 +1,10 @@
 package objects.frame;
 
 import helpers.ConfigReader;
-import helpers.actors.Actor;
-import helpers.actors.ActorFactory;
-import helpers.actors.ActorType;
+import helpers.api.Request;
+import helpers.browsers.Browser;
+import helpers.browsers.BrowserFactory;
+import helpers.browsers.BrowserType;
 import io.cucumber.java.Scenario;
 import org.junit.Assert;
 
@@ -29,8 +30,14 @@ public class Context {
     public static Integer pageLoadWait;
 
     public static Scenario currentScenario; // This is refreshed by the relevant hook
-    public static ActorType defaultActorType;
-    public static Actor defaultActor; // This is set up when the run starts
+
+    public static BrowserType defaultBrowserType;
+    public static Browser defaultBrowser; // This is set up when the run starts
+
+    public static Request currentRequest = null;
+    @SuppressWarnings("CanBeFinal")
+    public static String currentResponseString = null;
+    public static int currentResponseCode = 0; // this may be used a few times, so add it to the context
 
     private Context() {
         System.out.println("[info] Setting up the context");
@@ -45,7 +52,7 @@ public class Context {
         try {
             System.setProperty("cucumber.reporting.java.config.file", testConfiguration.getProperty("reportConfigFile"));
         } catch (NoSuchFieldException e) {
-           Assert.fail("The report configuration file location must be defined the the test configuration");
+            Assert.fail("The report configuration file location must be defined the the test configuration");
         }
 
         try {
@@ -66,13 +73,13 @@ public class Context {
         }
 
         try {
-            defaultActorType = ActorType.valueOf(testConfiguration.getProperty("defaultBrowser").toUpperCase());
+            defaultBrowserType = BrowserType.valueOf(testConfiguration.getProperty("defaultBrowser").toUpperCase());
         } catch (NoSuchFieldException e) {
-            defaultActorType = null;
+            defaultBrowserType = null;
         }
 
         // I can not specifically say here that there must be a default actor.
         //noinspection ConstantConditions
-        defaultActor = ActorFactory.make(defaultActorType);
+        defaultBrowser = BrowserFactory.make(defaultBrowserType);
     }
 }

@@ -108,7 +108,7 @@ public class UniversalWebPage {
             return; // don't even create the executor
 
         String state = "";
-        JavascriptExecutor js = (JavascriptExecutor) Context.defaultActor.getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) Context.defaultBrowser.getDriver();
 
         if (js != null)
             for (int i = 0; i < maxWaitSeconds; i++) {

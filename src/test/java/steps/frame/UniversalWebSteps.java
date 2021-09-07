@@ -37,14 +37,14 @@ public class UniversalWebSteps {
      * @return - a new instance of the page object
      */
     private UniversalWebPage getNewPage() {
-        return new UniversalWebPage(Context.defaultActor.getDriver());
+        return new UniversalWebPage(Context.defaultBrowser.getDriver());
     }
 
     @Given("I navigate to the page {string}")
     public void iNavigateToThePage(String resourceLocator) {
         String fullLocator = ResourceLocator.interpretURL(resourceLocator);
         Assert.assertNotNull("Unable to make the URL work", fullLocator);
-        Context.defaultActor.getResource(fullLocator);
+        Context.defaultBrowser.getResource(fullLocator);
     }
 
 

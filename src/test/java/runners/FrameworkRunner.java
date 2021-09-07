@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
                 "me.jvt.cucumber.report.PrettyReports:target"
         }
         , tags = "not (@wip or @pot)"
-//        , tags = "(not @wip) and (not @pot) and @smoke"
+//        , tags = "(not @wip)  and @smoke"
 //        , tags = "(not @wip) and @pot"
 //        , dryRun = true
 )

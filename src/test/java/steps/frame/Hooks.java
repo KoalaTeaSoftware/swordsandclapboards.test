@@ -19,12 +19,15 @@ public class Hooks {
 
         // this may seem a bit involved, but a direct use of getStatus().equals does not yield the hoped-for result
         if (scenario.isFailed()) {
+
             Reports.writeScreenShotToHtmlReport("Screenshot taken because this scenario is marked as " + scenario.getStatus().toString());
             Reports.writePageSourceToHtmlReport();
+
+            Reports.writeCurrentResponseToHtmlReport();
         }
 
         // ensure that the next scenario starts with a clean slate
-        Context.defaultActor.closeDriver();
+        Context.defaultBrowser.closeDriver();
     }
 
 }

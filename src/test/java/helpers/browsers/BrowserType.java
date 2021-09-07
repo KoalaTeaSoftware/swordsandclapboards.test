@@ -1,6 +1,6 @@
-package helpers.actors;
+package helpers.browsers;
 
-public enum ActorType {
+public enum BrowserType {
     CHROME,
     FIREFOX,
     INTERNET_EXPLORER,

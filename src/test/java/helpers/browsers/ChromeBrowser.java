@@ -1,4 +1,4 @@
-package helpers.actors;
+package helpers.browsers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import objects.frame.Context;
@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.concurrent.TimeUnit;
 
-public class ChromeActor extends Actor {
+public class ChromeBrowser extends Browser {
 
     /*
     If you leave the page load strategy NORMAL, then you can get lots of errors like this

@@ -1,11 +1,11 @@
-package helpers.actors;
+package helpers.browsers;
 
-public class ActorFactory {
-    public static Actor make(ActorType type) {
+public class BrowserFactory {
+    public static Browser make(BrowserType type) {
         //noinspection CommentedOutCode
         switch (type) {
             case CHROME:
-                return new ChromeActor();
+                return new ChromeBrowser();
 //            case FIREFOX:
 //                return new FirefoxActor();
 //                case INTERNET_EXPLORER:
