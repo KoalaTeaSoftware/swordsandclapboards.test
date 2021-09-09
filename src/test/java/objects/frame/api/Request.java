@@ -60,7 +60,12 @@ public class Request {
     }
 
     public String getResponseHeader(String name) {
-        return this.responseHeaders.get(name).toString();
+        try {
+            return this.responseHeaders.get(name).toString();
+        } catch (java.lang.NullPointerException e) {
+            System.out.println("[info] Unable to find a header called :" + name + ":");
+            return "";
+        }
     }
 
     /**
@@ -186,10 +191,10 @@ public class Request {
 
     /**
      * Get the response string out of anything other than a patch
-     *
+     * <p>
      * Only provides anything useful if the response code is one of a few success-type codes
      * Otherwise, it sets the response string using the error sent by the server
-     *
+     * <p>
      * Also, it handles the IO exception (that is raised if the response was 500),
      * and, in such a case, sets the string to be ""
      */
