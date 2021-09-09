@@ -7,10 +7,8 @@ Feature: Default Resource Locations - Proof of Tests
   Note that this is not really an exhaustive test, you may want to make your own, but it is OK for a smoke as it will fall over
   if the defaults have not been correctly defined.
 
-  Background:
-    When I write to the report "Expect this scenario to fail"
-    And I navigate to the page ""
-
   Scenario: Demonstrate that the :exact title of a page: test detects an error
+    When I navigate to the page ""
     Then the page title is "Not Going To Be This Title At All"
+    And I write to the report "Expect this scenario to fail"
 

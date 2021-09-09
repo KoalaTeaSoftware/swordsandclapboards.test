@@ -1,10 +1,10 @@
 package objects.frame;
 
 import helpers.ConfigReader;
-import helpers.api.Request;
-import helpers.browsers.Browser;
-import helpers.browsers.BrowserFactory;
-import helpers.browsers.BrowserType;
+import objects.frame.api.Request;
+import objects.frame.browsers.Browser;
+import objects.frame.browsers.BrowserFactory;
+import objects.frame.browsers.BrowserType;
 import io.cucumber.java.Scenario;
 import org.junit.Assert;
 
@@ -52,7 +52,7 @@ public class Context {
         try {
             System.setProperty("cucumber.reporting.java.config.file", testConfiguration.getProperty("reportConfigFile"));
         } catch (NoSuchFieldException e) {
-            Assert.fail("The report configuration file location must be defined the the test configuration");
+           Assert.fail("The report configuration file location must be defined the the test configuration");
         }
 
         try {

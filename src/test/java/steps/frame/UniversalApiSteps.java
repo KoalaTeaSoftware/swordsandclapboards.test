@@ -1,6 +1,6 @@
 package steps.frame;
 
-import helpers.api.Request;
+import objects.frame.api.Request;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -20,6 +20,7 @@ public class UniversalApiSteps {
      * The general use of these steps will be to set up the requests URL, headers, body, and then to send the response
      * The sending is where the Request object is actually created (from the previous calls to set up the attributes)
      */
+
     private String requestMethod = null;
     private List<List<String>> headers = null;
     private String body = null;
@@ -40,7 +41,6 @@ public class UniversalApiSteps {
             List<String> temp = Arrays.asList(entry.getKey(), entry.getValue());
             headers.add(temp);
         }
-        System.out.println("Step-level header list is:" + headers + ":");
     }
 
     @Given("the request has following simple JSON body elements")
@@ -70,8 +70,6 @@ public class UniversalApiSteps {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        System.out.println("[info] Step-level body contains:" + body + ":");
     }
 
     @And("the request has the method {string}")
@@ -103,33 +101,7 @@ public class UniversalApiSteps {
         Context.currentResponseCode = Context.currentRequest.getResponseCode();
     }
 
-
-//    @When("I {string} from/to api at {string}")
-//    public void iFromApiAt(String verb, String location) {
-//        switch (verb.toLowerCase()) {
-//            case "get":
-//                Context.currentRequest = new GetRequest(location, null);
-//                break;
-//            case "post":
-//                Context.currentRequest = new PostRequest(location, null, null);
-//                break;
-//            case "put":
-//                Context.currentRequest = new PutRequest(location, null, null);
-//                break;
-//            case "patch":
-//                myRequest = new PatchRequest(location, null, null);
-//                break;
-//            case "delete":
-//                myRequest = new DeleteRequest(location, null);
-//                break;
-//            default:
-//                Assert.fail("Unable to process the method :" + verb + ":");
-//        }
-//        response = myRequest.sendRequest();
-//        responseCode = myRequest.getResponseCode();
-//    }
-
-    @Then("the the response status is {int}")
+    @Then("the response status is {int}")
     public void theTheResponseStatusIs(int expected) {
         Assert.assertEquals("Response code unexpected", expected, Context.currentResponseCode);
     }

@@ -1,4 +1,4 @@
-package helpers.api;
+package objects.frame.api;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -33,7 +33,6 @@ public class Request {
     private String username;
     private String password;
     private String cookie = "";
-
     private int responseCode;
     private Map<String, List<String>> responseHeaders;
     private String responseString;
@@ -152,10 +151,6 @@ public class Request {
                 this.cookie = conn.getHeaderField("Set-Cookie");
                 this.responseHeaders = conn.getHeaderFields();
 
-                System.out.println("[info] Response code:" + this.responseCode + ":");
-                System.out.println("[info] Response Cookie:" + this.cookie + ":");
-                System.out.println("[info] Response Headers:" + this.responseHeaders + ":");
-
                 extractResponseString();
 
                 conn.disconnect();
@@ -192,33 +187,35 @@ public class Request {
     /**
      * Get the response string out of anything other than a patch
      *
+     * Only provides anything useful if the response code is one of a few success-type codes
+     * Otherwise, it sets the response string using the error sent by the server
+     *
+     * Also, it handles the IO exception (that is raised if the response was 500),
+     * and, in such a case, sets the string to be ""
      */
-    private void extractResponseString() throws IOException {
-        // This is a partially experimental piece of code to see if it reads the response nicely
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
-        StringBuilder response = new StringBuilder();
-        String responseLine;
-        while ((responseLine = br.readLine()) != null) {
-            response.append(responseLine.trim());
-        }
-        System.out.println("[info] this is what I found in the response:" + response + ":");
-
-        switch (responseCode) {
-            case HttpURLConnection.HTTP_CREATED:
-            case HttpURLConnection.HTTP_OK:
-            case HttpURLConnection.HTTP_MOVED_TEMP:
-                // these are response codes that signify some sort of success
-                if (conn.getHeaderField("Content-Encoding") != null && conn.getHeaderField("Content-Encoding").contains("gzip")) {
-                    this.responseString = readFromStream(new InputStreamReader(new GZIPInputStream(conn.getInputStream())));
-                } else {
-                    this.responseString = readFromStream(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
-                }
-                System.out.println("[info] Read from response body:" + this.responseString + ":");
-                break;
-            default:
-                this.responseString = readFromStream(new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8));
-                System.out.println("[error] Read from response error:" + this.responseString + ":");
-                break;
+    private void extractResponseString() {
+        try {
+            switch (responseCode) {
+                case HttpURLConnection.HTTP_CREATED:
+                case HttpURLConnection.HTTP_OK:
+                case HttpURLConnection.HTTP_MOVED_TEMP:
+                    // these are response codes that signify some sort of success
+                    if (conn.getHeaderField("Content-Encoding") != null && conn.getHeaderField("Content-Encoding").contains("gzip")) {
+                        this.responseString = readFromStream(new InputStreamReader(new GZIPInputStream(conn.getInputStream())));
+                    } else {
+                        this.responseString = readFromStream(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+                    }
+                    break;
+                default:
+                    InputStreamReader is = new InputStreamReader(conn.getErrorStream(), StandardCharsets.UTF_8);
+                    this.responseString = readFromStream(is);
+                    System.out.println("[info] Possible error :" + this.responseString + ":");
+                    break;
+            }
+        } catch (java.io.IOException e) {
+            // unable to open the stream that might be relevant given the kind of response code
+            this.responseString = "";
+            System.out.println("[info] Response string is :" + responseString + ": because:" + e.getMessage() + ":");
         }
     }
 

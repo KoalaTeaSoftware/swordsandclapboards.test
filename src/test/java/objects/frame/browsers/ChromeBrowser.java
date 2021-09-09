@@ -1,4 +1,4 @@
-package helpers.browsers;
+package objects.frame.browsers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import objects.frame.Context;

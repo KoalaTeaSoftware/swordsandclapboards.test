@@ -1,4 +1,4 @@
-package helpers.browsers;
+package objects.frame.browsers;
 
 public class BrowserFactory {
     public static Browser make(BrowserType type) {

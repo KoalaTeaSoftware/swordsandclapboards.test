@@ -27,7 +27,7 @@ Feature: Mail Handler
       | subject          | This a testing subject    |
       | yourMessage      | This is a testing message |
     And the request is sent
-    Then the the response status is 302
+    Then the response status is 302
     And the response "Location" header does not contain "error"
     And the response "Location" header contains "msg"
     And the response "Location" header contains "sent"

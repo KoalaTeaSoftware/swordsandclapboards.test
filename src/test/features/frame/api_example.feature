@@ -4,11 +4,11 @@ Feature: The framework allows you to test restful APIs
   So that I can verify the behaviour of a restful API
   I want to be able to exercise an API, and examine its responses
 
-  Scenario Outline: Good and bad gets from a fake API
+  Scenario Outline: Get from a fake API
     Given the request has the method "get"
     And the request has the url "<url>"
     When the request is sent
-    Then the the response status is <response>
+    Then the response status is <response>
     Examples:
       | url                                                         | response |
       | https://my-json-server.typicode.com/typicode/demo/posts     | 200      |
@@ -17,16 +17,30 @@ Feature: The framework allows you to test restful APIs
       | https://my-json-server.typicode.com/typicode/demo/elephants | 404      |
 
   Scenario: Post to a fake API
-  This example URL is not be at all intelligent about what it accepts, and will always give you 201, unless you give it a bad path
-  However, you can see that posting in this manner does not crash that easily.
-    Given the request has following simple JSON body elements
+    This fake API does not seem to care about the data that you give it, but does want some data
+    Given the request has the url "https://jsonplaceholder.typicode.com/posts"
+    And the request has the method "post"
+    And the request has following header data
+      | content-type | application/x-www-form-urlencoded |
+      | Accept       | application/json                  |
+    And the request has following simple JSON body elements
       | I     | This api calls this the title         |
       | donot | This would be in the body of the post |
       | care  | 100000                                |
-    And the request has following header data
-      | Content-type | application/json; charset=UTF-8 |
-    And the request has the method "post"
-    And the request has the url "https://jsonplaceholder.typicode.com/posts"
     When the request is sent
-    Then the the response status is 201
+    Then the response status is 201
 
+  Scenario: Omit content-type of "application/x-www-form-urlencoded"
+  Without this header, the framework simply omits to send the parameters.
+  This uses (what may seem to be a sensible type of content), just to demonstrate this
+    Given the request has the url "https://jsonplaceholder.typicode.com/posts"
+    And the request has the method "post"
+    And the request has following header data
+      | content-type | application/json |
+      | Accept       | application/json |
+    And the request has following simple JSON body elements
+      | I     | This api calls this the title         |
+      | donot | This would be in the body of the post |
+      | care  | 100000                                |
+    When the request is sent
+    Then the response status is 500

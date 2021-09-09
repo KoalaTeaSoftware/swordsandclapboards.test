@@ -1,4 +1,4 @@
-package helpers.browsers;
+package objects.frame.browsers;
 
 import org.openqa.selenium.WebDriver;
 

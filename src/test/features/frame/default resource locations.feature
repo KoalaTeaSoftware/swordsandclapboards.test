@@ -8,8 +8,6 @@ Feature: Default Resource Locations
   Note that this is not really an exhaustive test, you may want to make your own, but it is OK for a smoke as it will fall over
   if the defaults have not been correctly defined.
 
-  Background:
-    When I navigate to the page ""
-
   Scenario: Check the exact title of a page
+    When I navigate to the page ""
     Then the page title is ""

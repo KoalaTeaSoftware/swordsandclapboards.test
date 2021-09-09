@@ -6,10 +6,14 @@ Feature: Handling of disallowed verbs
 
   Scenario Outline: Get an error message by using disallowed methods on the Swords and Clapboards mail handler
   The obviously bad verbs should give an appropriate error message
-    When I "<method>" from api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
-    Then the the response status is 302
-    And the response "location" header contains "error"
-    And the response "location" header contains "Message not sent"
+    Given the request has the url "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
+    And the request has the method "<method>"
+    When the request is sent
+    Then the response status is 302
+#    When I "<method>" from api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
+#    Then the the response status is 302
+#    And the response "location" header contains "error"
+#    And the response "location" header contains "Message not sent"
     Examples:
       | method |
       | get    |
