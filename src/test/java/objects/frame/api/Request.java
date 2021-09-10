@@ -8,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,7 +28,9 @@ public class Request {
     private final String endpoint;
     private final List<List<String>> headers;
     private final String requestType;
-    private final String body;
+    private String body = "";
+
+    private JSONObject jsonBody;
 
     private String authentication = "";
     private String username;
@@ -81,6 +84,7 @@ public class Request {
         this.password = password;
     }
 
+
     /**
      * Constructor - when you are going to send a message, use this to set it up, then use send to actually do something
      *
@@ -92,6 +96,21 @@ public class Request {
     public Request(String endpoint, String body, List<List<String>> headers, String requestType) {
         this.endpoint = endpoint;
         this.body = body;
+        this.requestType = requestType;
+        this.headers = headers;
+    }
+
+    /**
+     * Constructor - when you are going to send a message, use this to set it up, then use send to actually do something
+     *
+     * @param endpoint    - needs to be a URL
+     * @param jsonBody    -  a stringed-up blob of json is going to work
+     * @param headers     - make sure that you have something that forces the body to go (like application/x-www-form-urlencoded)
+     * @param requestType - One of the normal set - not verified in this code
+     */
+    public Request(String endpoint, JSONObject jsonBody, List<List<String>> headers, String requestType) {
+        this.endpoint = endpoint;
+        this.jsonBody = jsonBody;
         this.requestType = requestType;
         this.headers = headers;
     }
@@ -137,7 +156,9 @@ public class Request {
             if (requestType.equalsIgnoreCase("PATCH")) {
                 doPatchRequest();
             } else {
-                if (body != null) {
+                if (jsonBody != null) {
+                    body = helpers.Json.toFormEncoded(jsonBody);
+
                     // this makes the connection accept data
                     conn.setDoOutput(true);
 

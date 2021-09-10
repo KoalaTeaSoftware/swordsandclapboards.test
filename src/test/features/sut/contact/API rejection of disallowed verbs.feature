@@ -10,8 +10,6 @@ Feature: Handling of disallowed verbs
     And the request has the method "<method>"
     When the request is sent
     Then the response status is 302
-#    When I "<method>" from api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
-#    Then the the response status is 302
     And the response "Location" header contains "error"
     And the response "Location" header contains "postman"
     Examples:

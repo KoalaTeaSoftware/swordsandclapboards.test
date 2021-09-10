@@ -9,7 +9,6 @@ Feature: Mail Handler
   Note that these do NOT prove that the message was actually sent, or not. This has to be manually verified.
 
   Background:
-#    Given the request has the url "https://us-central1-daily-dilettante.cloudfunctions.net/sendMail"
     Given the request has the url "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
     And the request has the method "post"
     And the request has following header data
@@ -32,51 +31,92 @@ Feature: Mail Handler
     And the response "Location" header contains "msg"
     And the response "Location" header contains "sent"
 
-#  Scenario Outline: Send requests with missing elements to the mail handler
-#  Note that this is NOT proving that the message was actually not sent. This has to be manually verified.
-#    Given I post the following data to the api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
-#      | name             | <name>    |
-#      | emailAddress     | <add1>    |
-#      | emailAddressConf | <add2>    |
-#      | subject          | <subject> |
-#      | yourMessage      | <message> |
-#    Then the the response status is 302
-#    And the response "Location" header contains "error"
-#    And the response "Location" header does not contain "sent"
-#    And the response "Location" header contains "<responseMsg>"
-#    Examples:
-#      | name       | add1    | add2    | subject                      | message                   | responseMsg    |
-#      | Testing Ed | a@b.com | a@b.com | Testing no message           |                           | longer message |
-#      | Testing Ed | a@b.com | a@b.com |                              | testing no subject        | longer subject |
-#      | Testing Ed | a@b.com |         | Testing missing second email | This is a testing message | address        |
-#      | Testing Ed |         | a@b.com | Testing missing first email  | This is a testing message | address        |
-#      |            | a@b.com | a@b.com | Testing missing name         | This is a testing message | longer name    |
-#
-#  Scenario: Send a unmatched email addresses to the mail handler
-#    Given I post the following data to the api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
-#      | name             | gonzo                     |
-#      | emailAddress     | a@b.com                   |
-#      | emailAddressConf | b@a.com                   |
-#      | subject          | This a testing subject    |
-#      | yourMessage      | This is a testing message |
-#    Then the the response status is 302
-#    And the response "Location" header contains "error"
-#    And the response "Location" header does not contain "sent"
-#    And the response "Location" header contains "identical"
-#
-#  Scenario Outline: Send badly sized names in requests to the mail handler
-#  Note that this is NOT proving that the message was actually not sent. This has to be manually verified.
-#    Given I post the following data to the api at "https://stage.swordsandclapboards.com/chapters/contact/sendmail.php"
-#      | name             | <name>                    |
-#      | emailAddress     | a@b.com                   |
-#      | emailAddressConf | a@b.com                   |
-#      | subject          | This a testing subject    |
-#      | yourMessage      | This is a testing message |
-#    Then the the response status is 302
-#    And the response "Location" header contains "error"
-#    And the response "Location" header does not contain "sent"
-#    And the response "Location" header contains "<responseMsg>"
-#    Examples:
-#      | name                                                       | responseMsg  |
-#      | wil                                                        | longer name  |
-#      | Lorem ipsum dolor sit amet consectetur adipiscing elit est | shorter name |
+  Scenario Outline: Send requests with missing elements to the mail handler
+  Note that this is NOT proving that the message was actually not sent. This has to be manually verified.
+    When the request has following simple JSON body elements
+      | name             | <name>    |
+      | emailAddress     | <add1>    |
+      | emailAddressConf | <add2>    |
+      | subject          | <subject> |
+      | yourMessage      | <message> |
+    And the request is sent
+    Then the response status is 302
+    And the response "Location" header contains "error"
+    And the response "Location" header contains "vital fields"
+    And the response "Location" header does not contain "sent"
+    Examples:
+      | name       | add1    | add2    | subject                      | message                   |
+      | Testing Ed | a@b.com | a@b.com | Testing no message           |                           |
+      | Testing Ed | a@b.com | a@b.com |                              | testing no subject        |
+      | Testing Ed | a@b.com |         | Testing missing second email | This is a testing message |
+      | Testing Ed |         | a@b.com | Testing missing first email  | This is a testing message |
+      |            | a@b.com | a@b.com | Testing missing name         | This is a testing message |
+
+  Scenario: Send a unmatched email addresses to the mail handler
+    When the request has following simple JSON body elements
+      | name             | gonzo                     |
+      | emailAddress     | a@b.com                   |
+      | emailAddressConf | b@a.com                   |
+      | subject          | This a testing subject    |
+      | yourMessage      | This is a testing message |
+    And the request is sent
+    Then the response status is 302
+    And the response "Location" header contains "error"
+    And the response "Location" header does not contain "sent"
+    And the response "Location" header contains "identical"
+
+  Scenario Outline: Send badly sized names in requests to the mail handler
+  Note that this is NOT proving that the message was actually not sent. This has to be manually verified.
+    When the request has following simple JSON body elements
+      | name             | <name>                    |
+      | emailAddress     | a@b.com                   |
+      | emailAddressConf | a@b.com                   |
+      | subject          | This a testing subject    |
+      | yourMessage      | This is a testing message |
+    And the request is sent
+    Then the response status is 302
+    And the response "Location" header contains "error"
+    And the response "Location" header does not contain "sent"
+    And the response "Location" header contains "<responseMsg>"
+    Examples:
+      | name                                                       | responseMsg  |
+      | wil                                                        | longer name  |
+      | Lorem ipsum dolor sit amet consectetur adipiscing elit est | shorter name |
+
+  Scenario Outline: Send badly sized subjects in requests to the mail handler
+  Note that this is NOT proving that the message was actually not sent. This has to be manually verified.
+    When the request has following simple JSON body elements
+      | name             | Gonzo The Great           |
+      | emailAddress     | a@b.com                   |
+      | emailAddressConf | a@b.com                   |
+      | subject          | <subject>                 |
+      | yourMessage      | This is a testing message |
+    And the request is sent
+    Then the response status is 302
+    And the response "Location" header contains "error"
+    And the response "Location" header does not contain "sent"
+    And the response "Location" header contains "<responseMsg>"
+    Examples:
+      | subject                                                    | responseMsg     |
+      | neg                                                        | longer subject  |
+      | Lorem ipsum dolor sit amet consectetur adipiscing elit est | shorter subject |
+
+
+  Scenario Outline: Send badly messages names in requests to the mail handler
+  Note that this is NOT proving that the message was actually not sent. This has to be manually verified.
+    When the request has following simple JSON body elements
+      | name             | Gonzo The Great |
+      | emailAddress     | a@b.com         |
+      | emailAddressConf | a@b.com         |
+      | subject          | <subject>       |
+      | yourMessage      | TBR             |
+    And the "yourMessage" JSON body element contains a randomly generated string <length> characters long
+    And the request is sent
+    Then the response status is 302
+    And the response "Location" header contains "error"
+    And the response "Location" header does not contain "sent"
+    And the response "Location" header contains "<responseMsg>"
+    Examples:
+      | length | responseMsg     |
+      | 9      | longer message  |
+      | 5001   | shorter message |

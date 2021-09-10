@@ -1,18 +1,22 @@
 package steps.frame;
 
-import objects.frame.api.Request;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import objects.frame.Context;
+import objects.frame.api.Request;
+import org.json.JSONObject;
 import org.junit.Assert;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 
 public class UniversalApiSteps {
@@ -23,7 +27,7 @@ public class UniversalApiSteps {
 
     private String requestMethod = null;
     private List<List<String>> headers = null;
-    private String body = null;
+    private JSONObject jsonBody;
     private String url = null;
 
 
@@ -46,29 +50,9 @@ public class UniversalApiSteps {
     @Given("the request has following simple JSON body elements")
     public void theRequestHasFollowingSimpleJSONBodyElements(DataTable dataTable) {
         Map<String, String> dataMap = dataTable.asMap(String.class, String.class);
-        /*
-        The body is being handled and passed around as a string, but should be JSON
-        This step is assuming that you want it to be a simple json structure containing the top-level elements that you give
-         */
-        Map<String, Object> params = new LinkedHashMap<>();
-
-        // I am using this (less efficient code) becuase it is more self-explanatory that the (more efficient) suggestions
+        jsonBody = new JSONObject();
         for (Map.Entry<String, String> entry : dataMap.entrySet()) {
-            //noinspection UseBulkOperation
-            params.put(entry.getKey(), entry.getValue());
-        }
-
-        StringBuilder postData = new StringBuilder();
-        try {
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (postData.length() != 0) postData.append('&');
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            body = postData.toString();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            jsonBody.put(entry.getKey(), entry.getValue());
         }
     }
 
@@ -96,7 +80,8 @@ public class UniversalApiSteps {
     @When("the request is sent")
     public void theRequestIsSent() {
         // set up the current request (in the Context), and send that request, storing the result
-        Context.currentRequest = new Request(url, body, headers, requestMethod);
+//        Context.currentRequest = new Request(url, body, headers, requestMethod);
+        Context.currentRequest = new Request(url, jsonBody, headers, requestMethod);
         Context.currentRequest.sendRequest();
         Context.currentResponseCode = Context.currentRequest.getResponseCode();
     }
@@ -161,4 +146,12 @@ public class UniversalApiSteps {
     }
 
 
+    @And("the {string} JSON body element contains a randomly generated string {int} characters long")
+    public void theJSONBodyElementContainsARandomlyGeneratedStringCharactersLong(String elementName, int length) {
+        try {
+            this.jsonBody.put(elementName, helpers.RandomGenerators.createRandomWords(length));
+        } catch (org.json.JSONException e) {
+            Assert.fail("[error] Failed to understand the existing body." + e.getMessage() + "");
+        }
+    }
 }

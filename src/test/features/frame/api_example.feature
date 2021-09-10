@@ -21,6 +21,7 @@ Feature: The framework allows you to test restful APIs
     Given the request has the url "https://jsonplaceholder.typicode.com/posts"
     And the request has the method "post"
     And the request has following header data
+#      | content-type | application/json; charset=UTF-8 | - This WILL NOT result in the data getting sent out
       | content-type | application/x-www-form-urlencoded |
       | Accept       | application/json                  |
     And the request has following simple JSON body elements
