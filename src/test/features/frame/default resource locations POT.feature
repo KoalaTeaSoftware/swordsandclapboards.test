@@ -1,4 +1,4 @@
-@pot
+@smoke @pot
 Feature: Default Resource Locations - Proof of Tests
   As a test engineer,
   So that I have confidence in the specification of default resource location,

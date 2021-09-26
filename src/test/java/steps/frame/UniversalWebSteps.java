@@ -98,6 +98,11 @@ public class UniversalWebSteps {
         Assert.assertEquals("Unexpected H1", expected, getMyPage().readFirstHeader());
     }
 
+    @And("the first heading becomes {string}")
+    public void theFirstHeadingBecomes(String expected) {
+        Assert.assertEquals("Unexpected H1", expected, getMyPage().readFirstHeader());
+    }
+
     @And("the first heading contains {string}")
     public void theFirstHeadingContains(String needle) {
         final String haystack = getMyPage().readFirstHeader();
@@ -113,4 +118,5 @@ public class UniversalWebSteps {
                 "The first header :" + haystack + ": should NOT contain :" + needle + ":",
                 haystack.contains(needle));
     }
+
 }

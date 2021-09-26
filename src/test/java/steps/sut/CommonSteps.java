@@ -41,7 +41,8 @@ public class CommonSteps {
                     "Image number " + i + "does not appear to be well formed");
         }
         sa.assertAll();
-
     }
+
+
 
 }

@@ -63,6 +63,14 @@ public class UniversalWebPage {
         return myDriver.findElement(By.tagName("H1")).getText();
     }
 
+    public void waitForFirstHeaderToBe(String expected) {
+        new WebDriverWait(
+                myDriver,
+                Duration.ofSeconds(Context.pageLoadWait))
+                // this is an exact, case-sensitive match
+                .until(ExpectedConditions.textToBePresentInElementLocated(By.tagName("H1"), expected));
+    }
+
     public URL readCurrentLocation() throws MalformedURLException {
         return new URL(myDriver.getCurrentUrl());
     }

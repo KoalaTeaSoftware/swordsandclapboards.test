@@ -1,5 +1,4 @@
-@smoke
-Feature: Friendly URLs
+Feature: Browser's location display
   As a user of the site
   So that I can bookmark and share specific pages
   I want the web site to have friendly URLs
@@ -8,15 +7,16 @@ Feature: Friendly URLs
   Note that this scenario does not use any SUT specific criteria, but does assume that the default has been set
     Given I navigate to the page "<testURL>"
     Then the page title is "<expectedTitle>"
+    And the first heading contains "<heading>"
     Examples:
-      | testURL         | expectedTitle         |
-      |                 | Swords and Clapboards |
-      | home            | Swords and Clapboards |
-      | about           | Swords and Clapboards |
-      | on-release      | Swords and Clapboards |
-      | comic-fantasy   | Swords and Clapboards |
-      | period-brit-lit | Swords and Clapboards |
-      | contact         | Swords and Clapboards |
+      | testURL         | expectedTitle         | heading                    |
+      |                 | Swords and Clapboards | Welcome                    |
+      | home            | Swords and Clapboards | Welcome                    |
+      | about           | Swords and Clapboards | About                      |
+      | on-release      | Swords and Clapboards | On Release                 |
+      | comic-fantasy   | Swords and Clapboards | Comic Fantasy Features     |
+      | period-brit-lit | Swords and Clapboards | Period Brit. Lit. Features |
+      | contact         | Swords and Clapboards | Contact                    |
 
   Scenario Outline: I visit all known chapters and see that they appear to be complete
   Note: This scenario is very likely to make use of SUT-specific page details

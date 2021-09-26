@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
 //                "json:target/cucumber.json",
                 "me.jvt.cucumber.report.PrettyReports:target"
         }
-        , tags = "not (@wip or @pot)"
+        , tags = "not (@wip or @pot or @smoke)"
 //        , tags = "(not @wip)  and @smoke"
 //        , tags = "(not @wip) and @pot"
 //        , dryRun = true

@@ -1,7 +1,7 @@
 Feature: Mail Handler
   As the Product Owner
   So that users of the web site can contact me
-  I want a facility that handles email messages
+  I want a facility that handles email messages, and rejects many sorts of hacking attacks
 
   This specific API is made to work as the fielder of a request from a web page, so it always returns a redirection along
   with parameters indicating success, or failure.
@@ -15,9 +15,11 @@ Feature: Mail Handler
       | content-type | application/x-www-form-urlencoded |
       | Accept       | application/json                  |
 
+  @expect_side_effect
   Scenario: Send a good request to the mail handler
-  Note that this is NOT proving that the message was actually sent. This has to be manually verified.
-  Having this as part of the set of tests gives some confidence that th errors that subsequent tests should raise are real
+  This will (if successful) have the effect of actually sending an email to the S&C address (configured in the mail constraints).
+  Note that this is NOT proving that the message was actually sent. That has to be manually verified.
+  Having this as part of the set of tests gives some confidence that the errors that subsequent tests should raise are real
   Especially as its tests values are often reused.
     When the request has following simple JSON body elements
       | name             | Teddy the Test            |
@@ -120,3 +122,18 @@ Feature: Mail Handler
       | length | responseMsg     |
       | 9      | longer message  |
       | 5001   | shorter message |
+
+
+  Scenario Outline: Get an error message by using disallowed methods on the Swords and Clapboards mail handler
+  The obviously bad verbs should give an appropriate error message
+  The following step overrides the similar stp in the background (setup)
+    When the request has the method "<method>"
+    And the request is sent
+    Then the response status is 302
+    And the response "Location" header contains "error"
+    And the response "Location" header contains "postman"
+    Examples:
+      | method |
+      | get    |
+      | put    |
+      | delete |

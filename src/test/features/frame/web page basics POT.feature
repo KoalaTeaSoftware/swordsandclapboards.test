@@ -1,4 +1,4 @@
-@pot
+@smoke @pot
 Feature: Web Page Basics - Proof of Tests
   As a test engineer, so that I can have confidence in the test framework, I want to see deliberate failures reported
 
@@ -14,5 +14,6 @@ Feature: Web Page Basics - Proof of Tests
     Then the page title contains "koala Tea"
 
   Scenario: Demonstrate that the :title does not contains a keyphrase: test detects an error
+    #noinspection SpellCheckingInspection
     Then the page title does not contain "Welcom"
 
